@@ -63,8 +63,10 @@ async function withOracleDB(action) {
         }
     }
 }
+//---------- general use
 
 
+//----------
 // 2.1.1 INSERT user can add partid to a pcpartlist with list id.
 async function insertPCPL(ListID, PartID) {
     console.log("Performing INSERT"); 
@@ -204,6 +206,8 @@ async function countDemotable() {
 
 module.exports = {
     updatePCP,
+    deletePID,
+
     testOracleConnection,
     fetchDemotableFromDb,
     initiateDemotable, 
