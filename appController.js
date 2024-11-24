@@ -66,6 +66,24 @@ router.post('/delete-PID', async (req, res) => {
     }
 });
 
+// Listen to INSERT endpoint
+router.post('/insert-PID', async (req, res) => {
+    console.log("POST - INSERT");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const { ListID, PartID } = req.body;
+    const result = await appService.insertPCPL(ListID, PartID);
+    if (result) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 
 //------------------------------------------------------------------
 router.get('/demotable', async (req, res) => {

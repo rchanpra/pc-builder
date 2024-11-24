@@ -120,8 +120,45 @@ async function deletePID(ListID, PartID) {
 //2.1.6 Join
 
 //2.1.7 Aggregation with GROUP BY
+async function AGGB() {
+    console.log("Performing Aggregation with GROUP BY"); 
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT AVG(Rating), ManufacturerID 
+            FROM PCParts 
+            GROUP BY ManufacturerID
+            `
+        );
+        console.log("AGGB done")
+        console.log(result);
+        return result;// still thinking the return value
+    }).catch(() => {
+        return false;
+    });
+}
 
 //2.1.8 Aggregation with HAVING
+async function AGH() {
+    console.log("Performing Aggregation with HAVING"); 
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT COUNT(PartID), MIN(Rating), ManufacturerID 
+            FROM PCParts 
+            GROUP BY ManufacturerID
+            HAVING MIN(Rating) > 7
+            `
+        );
+        console.log("AGH done")
+        console.log(result);
+        return result;// still thinking the return value
+    }).catch(() => {
+        return false;
+    });
+}
 
 //2.1.9 Nested aggregation with GROUP BY
 
@@ -205,6 +242,7 @@ async function countDemotable() {
 }
 
 module.exports = {
+    insertPCPL,
     updatePCP,
     deletePID,
 
