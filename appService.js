@@ -65,6 +65,66 @@ async function withOracleDB(action) {
 }
 
 
+// 2.1.1 INSERT user can add partid to a pcpartlist with list id.
+async function insertPCPL(ListID, PartID) {
+    console.log("Performing INSERT"); 
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `INSERT INTO Contain (ListID, PartID) VALUES (:ListID, :PartID)`,
+            [ListID, PartID],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+//2.1.2 UPDATE pcparts
+async function updatePCP(PartID, Name, Model, Rating, ManufacturerID) {
+    console.log("Performing UPDATE"); 
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `UPDATE PCParts SET Name=:Name, Model=:Model, Rating:= Rating where PartID=:PartID`,
+            [PartID, Name, Model, Rating, ManufacturerID],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+//2.1.3 DELETE 
+async function deletePID(ListID, PartID) {
+    console.log("Performing DELETE"); 
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM Contain WHERE ListID=:ListID AND PartID = :PartID`,
+            { ListID, PartID },
+            { autoCommit: true }
+        );
+        console.log("PCPL deleted")
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+//2.1.4 Selection
+
+//2.1.5 Projection
+
+//2.1.6 Join
+
+//2.1.7 Aggregation with GROUP BY
+
+//2.1.8 Aggregation with HAVING
+
+//2.1.9 Nested aggregation with GROUP BY
+
+//2.1.10 Division
+
 // ----------------------------------------------------------
 // Core functions for database operations
 // Modify these functions, especially the SQL queries, based on your project's requirements and design.
@@ -143,6 +203,7 @@ async function countDemotable() {
 }
 
 module.exports = {
+    updatePCP,
     testOracleConnection,
     fetchDemotableFromDb,
     initiateDemotable, 
