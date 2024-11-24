@@ -84,6 +84,39 @@ router.post('/insert-PID', async (req, res) => {
     }
 });
 
+// Listen to AGGB endpoint
+router.post('/aggregation-group-by', async (req, res) => {
+    console.log("POST - AGGB");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const result = await appService.AGGB();
+    if (result) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// Listen to AGH endpoint
+router.post('/aggregation-having', async (req, res) => {
+    console.log("POST - AGH");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+    const {Rating} = req.body;
+    const result = await appService.AGH(Rating);
+    if (result) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 
 //------------------------------------------------------------------
 router.get('/demotable', async (req, res) => {

@@ -103,7 +103,7 @@ async function deletePID(ListID, PartID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `DELETE FROM Contain WHERE ListID=:ListID AND PartID = :PartID`,
-            { ListID, PartID },
+            [ ListID, PartID ],
             { autoCommit: true }
         );
         console.log("PCPL deleted")
@@ -140,7 +140,7 @@ async function AGGB() {
 }
 
 //2.1.8 Aggregation with HAVING
-async function AGH() {
+async function AGH(rating) {
     console.log("Performing Aggregation with HAVING"); 
 
     return await withOracleDB(async (connection) => {
@@ -149,8 +149,9 @@ async function AGH() {
             SELECT COUNT(PartID), MIN(Rating), ManufacturerID 
             FROM PCParts 
             GROUP BY ManufacturerID
-            HAVING MIN(Rating) > 7
-            `
+            HAVING MIN(Rating) > :rating
+            `,
+            [rating]
         );
         console.log("AGH done")
         console.log(result);
@@ -245,7 +246,9 @@ module.exports = {
     insertPCPL,
     updatePCP,
     deletePID,
-
+    AGGB,
+    AGH,
+    //----------DEMO FUNCTION BELOW--------------
     testOracleConnection,
     fetchDemotableFromDb,
     initiateDemotable, 
