@@ -116,9 +116,54 @@ async function deletePID(ListID, PartID) {
 //2.1.4 Selection
 
 //2.1.5 Projection
+async function PROJ(attributes, tablename) {
+    console.log("Performing PROJ"); 
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT :attributes
+            FROM :tablename
+            `,
+            [attributes, tablename]
+        );
+        console.log("PROJ done")
+        console.log(result);
+        return {
+            result: result,
+            bool: true
+        };// still thinking the return value
+    }).catch(() => {
+        return false;
+    });
+}
+
 
 //2.1.6 Join
+async function JOIN(rating) {
+    console.log("Performing JOIN"); 
 
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT parentpart.name, childpart.name
+            FROM Compatibility 
+            JOIN PCParts AS parentpart ON Compatibility.ParentPartID = parentpart.PartID
+            JOIN PCParts AS childpart ON Compatibility.ChildPartID = childpart.PartID
+            WHERE parentpart.Rating > :rating AND childpart.Rating > :rating
+            `,
+            [rating]
+        );
+        console.log("JOIN done")
+        console.log(result);
+        return {
+            result: result,
+            bool: true
+        };// still thinking the return value
+    }).catch(() => {
+        return false;
+    });
+}
 //2.1.7 Aggregation with GROUP BY
 async function AGGB() {
     console.log("Performing Aggregation with GROUP BY"); 
@@ -133,7 +178,10 @@ async function AGGB() {
         );
         console.log("AGGB done")
         console.log(result);
-        return result;// still thinking the return value
+        return {
+            result: result,
+            bool: true
+        };// still thinking the return value
     }).catch(() => {
         return false;
     });
@@ -155,7 +203,10 @@ async function AGH(rating) {
         );
         console.log("AGH done")
         console.log(result);
-        return result;// still thinking the return value
+        return {
+            result: result,
+            bool: true
+        };// still thinking the return value
     }).catch(() => {
         return false;
     });
@@ -164,6 +215,8 @@ async function AGH(rating) {
 //2.1.9 Nested aggregation with GROUP BY
 
 //2.1.10 Division
+
+
 
 // ----------------------------------------------------------
 // Core functions for database operations
@@ -246,6 +299,8 @@ module.exports = {
     insertPCPL,
     updatePCP,
     deletePID,
+    PROJ,
+    JOIN,
     AGGB,
     AGH,
     //----------DEMO FUNCTION BELOW--------------

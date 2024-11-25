@@ -29,6 +29,23 @@ function Sanitization(req) {
     return true;
 }
 
+// Listen to INSERT endpoint
+router.post('/insert-PID', async (req, res) => {
+    console.log("POST - INSERT");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const { ListID, PartID } = req.body;
+    const result = await appService.insertPCPL(ListID, PartID);
+    if (result) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 
 // Listen to UPDATE endpoint
 router.post('/update-PCParts', async (req, res) => {
@@ -66,19 +83,37 @@ router.post('/delete-PID', async (req, res) => {
     }
 });
 
-// Listen to INSERT endpoint
-router.post('/insert-PID', async (req, res) => {
-    console.log("POST - INSERT");
+// Listen to PROJ endpoint
+router.post('/proj', async (req, res) => {
+    console.log("POST - PROJ");
 
     //2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
 
-    const { ListID, PartID } = req.body;
-    const result = await appService.insertPCPL(ListID, PartID);
+    const {attributes, tablename} = req.body;
+    const result = await appService.JOIN(attributes, tablename);
     if (result) {
-        res.json({ success: true });
+        res.json(result);
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// Listen to JOIN endpoint
+router.post('/join', async (req, res) => {
+    console.log("POST - JOIN");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const {Rating} = req.body;
+    const result = await appService.JOIN(Rating);
+    if (result) {
+        res.json(result);
     } else {
         res.status(500).json({ success: false });
     }
@@ -95,7 +130,7 @@ router.post('/aggregation-group-by', async (req, res) => {
 
     const result = await appService.AGGB();
     if (result) {
-        res.json({ success: true });
+        res.json(result);
     } else {
         res.status(500).json({ success: false });
     }
@@ -112,7 +147,7 @@ router.post('/aggregation-having', async (req, res) => {
     const {Rating} = req.body;
     const result = await appService.AGH(Rating);
     if (result) {
-        res.json({ success: true });
+        res.json(result);
     } else {
         res.status(500).json({ success: false });
     }
