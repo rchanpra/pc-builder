@@ -30,7 +30,7 @@ function Sanitization(req) {
 }
 
 // Listen to SELECT endpoint
-router.post('/select', async (req, res) => {
+router.get('/select', async (req, res) => {
     console.log("GET - SELECT");
 
     //2.2.2 Sanitization
@@ -101,7 +101,7 @@ router.post('/delete-PID', async (req, res) => {
 });
 
 // Listen to SELECTION endpoint
-router.post('/selection', async (req, res) => {
+router.get('/selection', async (req, res) => {
     console.log("GET - SELECTION");
 
     //2.2.2 Sanitization
