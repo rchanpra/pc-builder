@@ -161,6 +161,7 @@ async function countDemotable() {
 window.onload = function() {
     checkDbConnection();
     fetchTableData();
+    loadCompBuildTable();
     document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
     document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
@@ -172,3 +173,78 @@ window.onload = function() {
 function fetchTableData() {
     fetchAndDisplayUsers();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MY WORK
+
+async function loadCompBuildTable() {
+    const tableElement = document.getElementById('pcPartsTable');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const response = await fetch('/select', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(part => {
+        const row = tableBody.insertRow();
+        part.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
+// Inserts new records into the demotable.
+async function insertPCPart(event) {
+    event.preventDefault();
+
+    const idValue = document.getElementById('insertPartId').value;
+    const modelValue = document.getElementById('insertModel').value;
+    const nameValue = document.getElementById('insertPartName').value;
+    const ratingValue = document.getElementById('insertRating').value;
+
+    const response = await fetch('/insert-PID', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: idValue,
+            name: nameValue,
+            rating: ratingValue,
+            model: modelValue
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('insertResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Data inserted successfully!";
+        loadCompBuildTable();
+    } else {
+        messageElement.textContent = "Error inserting data!";
+    }
+}
+
