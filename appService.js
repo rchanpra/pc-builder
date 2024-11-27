@@ -63,7 +63,16 @@ async function withOracleDB(action) {
         }
     }
 }
+
 //---------- general use
+async function select() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM PCParts');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
 
 
 //----------
@@ -114,6 +123,24 @@ async function deletePID(ListID, PartID) {
 }
 
 //2.1.4 Selection
+async function SELECTION(name, model) {
+    console.log("Performing SELECTION"); 
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT *
+            FROM PCParts
+            WHERE Name=:name AND Model = :model
+            `,
+            [name, model]
+        );
+        console.log("SELECTION done")
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
 
 //2.1.5 Projection
 async function PROJ(attributes, tablename) {
@@ -213,8 +240,52 @@ async function AGH(rating) {
 }
 
 //2.1.9 Nested aggregation with GROUP BY
+async function NAGGB() {
+    console.log("Nested aggregation with GROUP BY"); 
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`
+            SELECT MAX(AvgRating) AS MaxRating, ThreadCount 
+            FROM (SELECT AVG(Rating) AS AvgRating, ManufacturerID, ThreadCount
+                    FROM (SELECT *
+                            FROM CPU c
+                            LEFT JOIN PCParts p ON c.PartID = p.PartID
+                    GROUP BY ManufacturerID, ThreadCount) 
+            GROUP BY ThreadCount
+        `);
+        console.log("NAGGB done")
+        console.log(result);
+        return {
+            result: result,
+            bool: true
+        };// still thinking the return value
+    }).catch(() => {
+        return false;
+    });
+}
 
 //2.1.10 Division
+async function DIVISION() {
+    console.log("Division"); 
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`
+            SELECT * FROM PCParts p
+            WHERE NOT EXISTS (
+                (SELECT r.RetailerID FROM Retailer r)
+                EXCEPT
+                (SELECT s.RetailerID FROM Sell s WHERE p.PartID = s.PartID)
+        `);
+        console.log("DIVISION done")
+        console.log(result);
+        return {
+            result: result,
+            bool: true
+        };// still thinking the return value
+    }).catch(() => {
+        return false;
+    });
+}
 
 
 
@@ -303,6 +374,9 @@ module.exports = {
     JOIN,
     AGGB,
     AGH,
+    NAGGB,
+    DIVISION,
+    select,
     //----------DEMO FUNCTION BELOW--------------
     testOracleConnection,
     fetchDemotableFromDb,

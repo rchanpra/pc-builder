@@ -29,6 +29,23 @@ function Sanitization(req) {
     return true;
 }
 
+// Listen to SELECT endpoint
+router.post('/select', async (req, res) => {
+    console.log("GET - SELECT");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const result = await appService.select();
+    if (result) {
+        res.json(result);
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 // Listen to INSERT endpoint
 router.post('/insert-PID', async (req, res) => {
     console.log("POST - INSERT");
@@ -78,6 +95,24 @@ router.post('/delete-PID', async (req, res) => {
     const result = await appService.deletePID(ListID, PartID);
     if (result) {
         res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// Listen to SELECTION endpoint
+router.post('/selection', async (req, res) => {
+    console.log("GET - SELECTION");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const {name, model} = req.body;
+    const result = await appService.SELECTION(name, model);
+    if (result) {
+        res.json(result);
     } else {
         res.status(500).json({ success: false });
     }
@@ -146,6 +181,39 @@ router.post('/aggregation-having', async (req, res) => {
     }
     const {Rating} = req.body;
     const result = await appService.AGH(Rating);
+    if (result) {
+        res.json(result);
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// Listen to NAGGB endpoint
+router.post('/nested-aggregation-group-by', async (req, res) => {
+    console.log("POST - NAGGB");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const result = await appService.NAGGB();
+    if (result) {
+        res.json(result);
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+// Listen to DIVISION endpoint
+router.post('/division', async (req, res) => {
+    console.log("POST - DIVISION");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+    const result = await appService.DIVISION();
     if (result) {
         res.json(result);
     } else {
