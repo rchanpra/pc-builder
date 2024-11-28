@@ -344,7 +344,10 @@ async function DIVISION() {
 async function SelectPCParts() {
     console.log("SelectPCParts");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM PcParts');
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID, m.Name
+            FROM PcParts p
+            JOIN Manufacturer m ON p.ManufacturerID=m.ManufacturerID`);
         return result.rows;
     }).catch(() => {
         return [];
