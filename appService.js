@@ -68,13 +68,13 @@ async function withOracleDB(action) {
 // ----------------------------------------------------------
 // Core functions for database operations
 // Modify these functions, especially the SQL queries, based on your project's requirements and design.
-async function testOracleConnection() {
-    return await withOracleDB(async (connection) => {
-        return true;
-    }).catch(() => {
-        return false;
-    });
-}
+// async function testOracleConnection() {
+//     return await withOracleDB(async (connection) => {
+//         return true;
+//     }).catch(() => {
+//         return false;
+//     });
+// }
 
 // async function fetchDemotableFromDb() {
 //     return await withOracleDB(async (connection) => {
@@ -153,9 +153,18 @@ async function testOracleConnection() {
 
 
 // ----------------------------------------------------------
-async function fetchDemotableFromDb() {
+async function testOracleConnection() {
+    console.log("testOracleConnection");
     return await withOracleDB(async (connection) => {
-        // const result = await connection.execute('SELECT * FROM DEMOTABLE');
+        return true;
+    }).catch(() => {
+        return false;
+    });
+}
+
+async function fetch() {
+    console.log("fetch");
+    return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM PcParts');
         return result.rows;
     }).catch(() => {
@@ -163,25 +172,21 @@ async function fetchDemotableFromDb() {
     });
 }
 
-async function initiateDemotable() {
+async function count() {
     return await withOracleDB(async (connection) => {
-        try {
-            await connection.execute(`start pcpartspicker.sql`);
-        } catch(err) {
-            console.log(err);
-        }
-        return true;
+        const result = await connection.execute('SELECT Count(*) FROM PcParts');
+        return result.rows[0][0];
     }).catch(() => {
-        return false;
+        return -1;
     });
 }
 
 
 // ----------------------------------------------------------
 // 2.1.1 INSERT
-// user can add partid to a pcpartlist with list id.
+// insert pcparts into pcpartslist
 async function INSERT(ListID, PartID) {
-    console.log("Performing INSERT"); 
+    console.log("INSERT");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `INSERT INTO Contain (ListID, PartID) VALUES (:ListID, :PartID)`,
@@ -195,9 +200,9 @@ async function INSERT(ListID, PartID) {
 }
 
 // 2.1.2 UPDATE
-// pcparts
+// update pcparts
 async function UPDATE(PartID, Name, Model, Rating, ManufacturerID) {
-    console.log("Performing UPDATE"); 
+    console.log("UPDATE");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `UPDATE PCParts SET Name=:Name, Model=:Model, Rating=:Rating where PartID=:PartID`,
@@ -210,16 +215,18 @@ async function UPDATE(PartID, Name, Model, Rating, ManufacturerID) {
     });
 }
 
-// 2.1.3 DELETE 
+// 2.1.3 DELETE
+// delete pcparts from pcpartslist
 async function DELETE(ListID, PartID) {
-    console.log("Performing DELETE"); 
+    console.log("DELETE");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `DELETE FROM Contain WHERE ListID=:ListID AND PartID = :PartID`,
-            [ ListID, PartID ],
+            `DELETE
+            FROM Contain
+            WHERE ListID=:ListID AND PartID =:PartID`,
+            [ListID, PartID],
             { autoCommit: true }
         );
-        console.log("PCPL deleted")
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
@@ -227,17 +234,16 @@ async function DELETE(ListID, PartID) {
 }
 
 // 2.1.4 Selection
-async function SELECTION(name, model) {
-    console.log("Performing SELECTION"); 
-
+// select pcparts with name and model
+async function SELECTION(Name, Model) {
+    console.log("Selection");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `
-            SELECT *
+            `SELECT *
             FROM PCParts
-            WHERE Name=:name AND Model = :model
-            `,
-            [name, model]
+            WHERE Name=:Name AND Model = :Model`,
+            [Name, Model],
+            { autoCommit: true }
         );
         console.log("SELECTION done")
         return result.rows;
@@ -248,8 +254,7 @@ async function SELECTION(name, model) {
 
 // 2.1.5 Projection
 async function PROJECTION(attributes, tablename) {
-    console.log("Performing PROJ"); 
-
+    console.log("Projection");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
@@ -269,11 +274,9 @@ async function PROJECTION(attributes, tablename) {
     });
 }
 
-
 // 2.1.6 Join
 async function JOIN(rating) {
-    console.log("Performing JOIN"); 
-
+    console.log("Join");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
@@ -295,10 +298,10 @@ async function JOIN(rating) {
         return false;
     });
 }
+
 // 2.1.7 Aggregation with GROUP BY
 async function GROUPBY() {
-    console.log("Performing Aggregation with GROUP BY"); 
-
+    console.log("Aggregation with GROUP BY");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
@@ -320,8 +323,7 @@ async function GROUPBY() {
 
 // 2.1.8 Aggregation with HAVING
 async function HAVING(rating) {
-    console.log("Performing Aggregation with HAVING"); 
-
+    console.log("Aggregation with HAVING");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
@@ -345,8 +347,7 @@ async function HAVING(rating) {
 
 // 2.1.9 Nested aggregation with GROUP BY
 async function NESTEDGROUPBY() {
-    console.log("Nested aggregation with GROUP BY"); 
-
+    console.log("Nested aggregation with GROUP BY");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`
             SELECT MAX(AvgRating) AS MaxRating, ThreadCount 
@@ -370,8 +371,7 @@ async function NESTEDGROUPBY() {
 
 // 2.1.10 Division
 async function DIVISION() {
-    console.log("Division"); 
-
+    console.log("Division");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`
             SELECT * FROM PCParts p
@@ -393,8 +393,8 @@ async function DIVISION() {
 
 module.exports = {
     testOracleConnection,
-    fetchDemotableFromDb,
-    initiateDemotable,
+    fetch,
+    count,
     INSERT,
     UPDATE,
     DELETE,

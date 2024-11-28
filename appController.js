@@ -6,14 +6,14 @@ const router = express.Router();
 // ----------------------------------------------------------
 // API endpoints
 // Modify or extend these routes based on your project's needs.
-router.get('/check-db-connection', async (req, res) => {
-    const isConnect = await appService.testOracleConnection();
-    if (isConnect) {
-        res.send('connected');
-    } else {
-        res.send('unable to connect');
-    }
-});
+// router.get('/check-db-connection', async (req, res) => {
+//     const isConnect = await appService.testOracleConnection();
+//     if (isConnect) {
+//         res.send('connected');
+//     } else {
+//         res.send('unable to connect');
+//     }
+// });
 
 // router.get('/demotable', async (req, res) => {
 //     const tableContent = await appService.fetchDemotableFromDb();
@@ -69,9 +69,43 @@ router.get('/check-db-connection', async (req, res) => {
 
 
 // ----------------------------------------------------------
+router.get('/check-db-connection', async (req, res) => {
+    console.log("GET - check-db-connection");
+    const isConnect = await appService.testOracleConnection();
+    if (isConnect) {
+        res.send('connected');
+    } else {
+        res.send('unable to connect');
+    }
+});
+
+router.get('/selectAllPcParts', async (req, res) => {
+    console.log("GET - fetch");
+    const tableContent = await appService.fetch();
+    res.json({data: tableContent});
+});
+
+router.get('/count', async (req, res) => {
+    console.log("GET - count");
+    const tableCount = await appService.count();
+    if (tableCount >= 0) {
+        res.json({ 
+            success: true,  
+            count: tableCount
+        });
+    } else {
+        res.status(500).json({ 
+            success: false, 
+            count: tableCount
+        });
+    }
+});
+
+
+// ----------------------------------------------------------
 const forbiddenwords = ["SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "ALL", "OR", "AND", "--", "#", "/*", "*/", "*", "%"];
 
-// SANITIZATION FUNCTION
+// 2.2.2 Sanitization
 function Sanitization(req) {
     const ParsedString = JSON.stringify(req.body).toUpperCase();
     for (const word of forbiddenwords) {
@@ -83,26 +117,9 @@ function Sanitization(req) {
     return true;
 }
 
-router.get('/selectAllPcParts', async (req, res) => {
-    const tableContent = await appService.fetchDemotableFromDb();
-    res.json({data: tableContent});
-});
-
-router.post("/initiate-demotable", async (req, res) => {
-    const initiateResult = await appService.initiateDemotable();
-    if (initiateResult) {
-        res.json({ success: true });
-    } else {
-        res.status(500).json({ success: false });
-    }
-});
-
-
-// ----------------------------------------------------------
-// Listen to INSERT endpoint
-router.post('/insert-PID', async (req, res) => {
+// 2.1.1 INSERT
+router.post("/insert", async (req, res) => {
     console.log("POST - INSERT");
-
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
@@ -117,19 +134,15 @@ router.post('/insert-PID', async (req, res) => {
     }
 });
 
-// Listen to UPDATE endpoint
-router.post('/update-PCParts', async (req, res) => {
+// 2.1.2 UPDATE
+router.post("/update", async (req, res) => {
     console.log("POST - UPDATE");
-
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
 
     const { PartID, Name, Model, Rating, ManufacturerID } = req.body;
-
-    console.log(PartID +  "   " + Name +  "   " + Model +  "   " + Rating +  "   " + ManufacturerID )
-
     const result = await appService.UPDATE(PartID, Name, Model, Rating, ManufacturerID);
     if (result) {
         res.json({ success: true });
@@ -138,10 +151,9 @@ router.post('/update-PCParts', async (req, res) => {
     }
 });
 
-// Listen to DELETE endpoint
-router.post('/delete-PID', async (req, res) => {
+// 2.1.3 DELETE 
+router.post('/delete', async (req, res) => {
     console.log("POST - DELETE");
-
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
@@ -156,10 +168,9 @@ router.post('/delete-PID', async (req, res) => {
     }
 });
 
-// Listen to SELECTION endpoint
+// 2.1.4 Selection
 router.get('/selection', async (req, res) => {
     console.log("GET - SELECTION");
-
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
@@ -174,10 +185,9 @@ router.get('/selection', async (req, res) => {
     }
 });
 
-// Listen to PROJ endpoint
-router.post('/proj', async (req, res) => {
-    console.log("POST - PROJ");
-
+// 2.1.5 Projection
+router.post('/projection', async (req, res) => {
+    console.log("POST - PROJECTION");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
@@ -192,10 +202,9 @@ router.post('/proj', async (req, res) => {
     }
 });
 
-// Listen to JOIN endpoint
+// 2.1.6 Join
 router.post('/join', async (req, res) => {
     console.log("POST - JOIN");
-
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
@@ -210,10 +219,9 @@ router.post('/join', async (req, res) => {
     }
 });
 
-// Listen to AGGB endpoint
-router.post('/aggregation-group-by', async (req, res) => {
-    console.log("POST - AGGB");
-
+// 2.1.7 Aggregation with GROUP BY
+router.post('/group-by', async (req, res) => {
+    console.log("POST - GROUPBY");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
@@ -227,14 +235,14 @@ router.post('/aggregation-group-by', async (req, res) => {
     }
 });
 
-// Listen to AGH endpoint
-router.post('/aggregation-having', async (req, res) => {
-    console.log("POST - AGH");
-
+// 2.1.8 Aggregation with HAVING
+router.post('/having', async (req, res) => {
+    console.log("POST - HAVING");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
+
     const {Rating} = req.body;
     const result = await appService.HAVING(Rating);
     if (result) {
@@ -244,10 +252,9 @@ router.post('/aggregation-having', async (req, res) => {
     }
 });
 
-// Listen to NAGGB endpoint
-router.post('/nested-aggregation-group-by', async (req, res) => {
-    console.log("POST - NAGGB");
-
+// 2.1.9 Nested aggregation with GROUP BY
+router.post('/nested-group-by', async (req, res) => {
+    console.log("POST - NESTEDGROUPBY");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
@@ -261,14 +268,14 @@ router.post('/nested-aggregation-group-by', async (req, res) => {
     }
 });
 
-// Listen to DIVISION endpoint
+// 2.1.10 Division
 router.post('/division', async (req, res) => {
     console.log("POST - DIVISION");
-
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
+
     const result = await appService.DIVISION();
     if (result) {
         res.json(result);

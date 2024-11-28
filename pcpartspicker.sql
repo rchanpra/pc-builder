@@ -1,3 +1,5 @@
+alter session set nls_date_format = 'YYYY-MM-DD';
+
 drop table Compatibility;
 drop table Sell;
 drop table Contain;
@@ -384,7 +386,8 @@ insert into Compatibility (ParentPartID, ChildPartID) values
 (5, 1);
 
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(1, 1, 100, 699, '2023-10-01');
+(1, 1, 100, 699, '01-Oct-23');
+-- (1, 1, 100, 699, '2023-10-01');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
 (2, 2, 50, 299, '2023-10-02');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
