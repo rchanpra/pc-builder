@@ -36,8 +36,9 @@ async function updatePCPart(event) {
     const modelValue = document.getElementById('insertModel').value;
     const nameValue = document.getElementById('insertPartName').value;
     const ratingValue = document.getElementById('insertRating').value;
+    const manufacturerValue = document.getElementById('insertManufacturer').value;
 
-    const response = await fetch('/update-PCParts', {
+    const response = await fetch('/update', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -46,7 +47,8 @@ async function updatePCPart(event) {
             PartID: idValue,
             Name: nameValue,
             Model: modelValue,
-            Rating: ratingValue
+            Rating: ratingValue,
+            ManufacturerID: manufacturerValue
         })
     });
 
@@ -57,6 +59,6 @@ async function updatePCPart(event) {
         messageElement.textContent = "Data updated successfully!";
         loadCompBuildTable();
     } else {
-        messageElement.textContent = "Error updating data!";
+        messageElement.textContent = responseData.message;
     }
 }

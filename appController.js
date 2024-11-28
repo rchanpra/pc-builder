@@ -110,7 +110,7 @@ function Sanitization(req) {
     const ParsedString = JSON.stringify(req.body).toUpperCase();
     for (const word of forbiddenwords) {
         if (ParsedString.includes(word)){
-            console.log(`SANITIZATION FAILED: ${keyword}`);
+            console.log(`SANITIZATION FAILED: ` + word);
             return false;
         }
     }
@@ -141,13 +141,14 @@ router.post("/update", async (req, res) => {
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
-
-    const { PartID, Name, Model, Rating } = req.body;
-    const result = await appService.UPDATE(PartID, Name, Model, Rating);
-    if (result) {
-        res.json({ success: true });
+    const { PartID, Name, Model, Rating, ManufacturerID } = req.body;
+    const result = await appService.UPDATE(PartID, Name, Model, Rating, ManufacturerID);
+    if (result == -1) {
+        res.json({ success: false, message: "Not a real manufacturer ID, please enter a valid one" });
+    } else if (result) {
+        res.json({ success: true, message: null });
     } else {
-        res.status(500).json({ success: false });
+        res.status(500).json({ success: false , message: "Not a real product ID, please enter a valid one"});
     }
 });
 

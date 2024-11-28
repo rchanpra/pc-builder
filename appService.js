@@ -202,16 +202,25 @@ async function INSERT(ListID, PartID) {
 
 // 2.1.2 UPDATE
 // update pcparts
-async function UPDATE(PartID, Name, Model, Rating) {
+async function UPDATE(PartID, Name, Model, Rating, ManufacturerID) {
     console.log("UPDATE");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `UPDATE PCParts SET Name=:Name, Model=:Model, Rating=:Rating where PartID=:PartID`,
-            [Name, Model, Rating, PartID],
+        let result = await connection.execute(
+            `SELECT * FROM Manufacturer WHERE ManufacturerID=:ManufacturerID`,
+            [ManufacturerID]
+        );
+
+        if (result.rows.length == 0) {
+            return -1
+        }
+
+        result = await connection.execute(
+            `UPDATE PCParts SET Name=:Name, Model=:Model, Rating=:Rating, ManufacturerID=:ManufacturerID where PartID=:PartID`,
+            [Name, Model, Rating, ManufacturerID, PartID],
             { autoCommit: true }
         );
         console.log("DONE");
-        return result.rowsAffected && result.rowsAffected > 0;
+        return result.rowsAffected > 0;
     }).catch(() => {
         return false;
     });
