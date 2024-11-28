@@ -1,14 +1,15 @@
 window.onload = function() {
     loadPcPartsListIDs();
-    document.getElementById("updatePCPartsTable").addEventListener("submit", updatePCPart);
+    document.getElementById("pcPartsListIDForm").addEventListener("submit", loadPcPartsList);
+    document.getElementById("deletePartID").addEventListener("submit", deletePcPartFromList);
 };
 
 
 async function loadPcPartsListIDs() {
-    const tableElement = document.getElementById('pcPartsTable');
+    const tableElement = document.getElementById('listOfListIDs');
     const tableBody = tableElement.querySelector('tbody');
 
-    const response = await fetch('/selectAllPcParts', {
+    const response = await fetch('/TODO', {
         method: 'GET'
     });
 
@@ -27,6 +28,55 @@ async function loadPcPartsListIDs() {
         });
     });
 }
+
+async function loadPcPartsList() {
+    const tableElement = document.getElementById('listOfListIDs');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const response = await fetch('/TODO', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(part => {
+        const row = tableBody.insertRow();
+        part.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
+async function deletePcPartFromList() {
+    const tableElement = document.getElementById('listOfListIDs');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const response = await fetch('/TODO', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(part => {
+        const row = tableBody.insertRow();
+        part.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
 
 
 async function updatePCPart(event) {
