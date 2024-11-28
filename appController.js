@@ -286,4 +286,35 @@ router.post('/division', async (req, res) => {
 });
 
 
+// ----------------------------------------------------------
+router.get('/SelectPCPartsFromPCPartsList', async (req, res) => {
+    console.log("POST - SelectPCPartsFromPCPartsList");
+    // 2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const {ListID} = req.body;
+    const result = await appService.SelectPCPartsFromPCPartsList(ListID);
+    if (result) {
+        res.json(result);
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.get('/SelectManufacturer', async (req, res) => {
+    console.log("GET - SelectManufacturer");
+    const tableContent = await appService.SelectManufacturer();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectRetailer', async (req, res) => {
+    console.log("GET - SelectRetailer");
+    const tableContent = await appService.SelectRetailer();
+    res.json({data: tableContent});
+});
+
+
+// ----------------------------------------------------------
 module.exports = router;
