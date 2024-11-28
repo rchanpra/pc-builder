@@ -120,6 +120,7 @@
                 <th>Model #</th>
                 <th>Name</th>
                 <th>Rating</th>
+                <th>Manufacturer ID</th>
             </tr>
         </thead>
         <tbody>
@@ -127,15 +128,16 @@
     </table>
 
 
-    <h2> Insert Values into PC Parts Table </h2>
-    <form id="insertPCPartsTable">
+    <h2> Update Values in PC Parts Table </h2>
+    <form id="updatePCPartsTable">
         ID: <input type="number" id="insertPartId" placeholder="Enter ID" required> <br><br>
-        Model #: <input type="number" id="insertModel" placeholder="Enter Model #"> <br><br>
+        Model #: <input type="text" id="insertModel" placeholder="Enter Model" maxlength="20"> <br><br>
         Name: <input type="text" id="insertPartName" placeholder="Enter Name" maxlength="20"> <br><br>
         Rating: <input type="number" id="insertRating" placeholder="Enter Rating" maxlength="1"> <br><br>
+        Manufacturer: <input type="number" id="insertManufacturer" placeholder="Enter Manufacturer" maxlength="10"> <br><br>
         <button type="submit"> insert </button> <br>
     </form>
-    <div id="insertPartResultMsg"></div>
+    <div id="updatePartResultMsg"></div>
 
 
 </body>

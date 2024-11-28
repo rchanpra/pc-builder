@@ -110,8 +110,8 @@ async function updatePCP(PartID, Name, Model, Rating, ManufacturerID) {
     console.log("Performing UPDATE"); 
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `UPDATE PCParts SET Name=:Name, Model=:Model, Rating:= Rating where PartID=:PartID`,
-            [PartID, Name, Model, Rating, ManufacturerID],
+            `UPDATE PCParts SET Name=:Name, Model=:Model, Rating=:Rating where PartID=:PartID`,
+            [Name, Model, Rating, PartID],
             { autoCommit: true }
         );
         return result.rowsAffected && result.rowsAffected > 0;
@@ -334,7 +334,7 @@ async function initiateDemotable() {
         const result = await connection.execute(`
             CREATE TABLE DEMOTABLE (
                 id NUMBER PRIMARY KEY,
-                name VARCHAR2(20)
+                name VARCHAR2(10)
             )
         `);
         return true;

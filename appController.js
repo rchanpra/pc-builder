@@ -91,6 +91,9 @@ router.post('/update-PCParts', async (req, res) => {
     }
 
     const { PartID, Name, Model, Rating, ManufacturerID } = req.body;
+
+    console.log(PartID +  "   " + Name +  "   " + Model +  "   " + Rating +  "   " + ManufacturerID )
+
     const result = await appService.updatePCP(PartID, Name, Model, Rating, ManufacturerID);
     if (result) {
         res.json({ success: true });

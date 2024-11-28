@@ -161,11 +161,14 @@ async function countDemotable() {
 window.onload = function() {
     checkDbConnection();
     fetchTableData();
-    loadCompBuildTable();
+
     document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
     document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
+    
+    loadSQL();
+    document.getElementById("updatePCPartsTable").addEventListener("submit", updatePCPart);
 };
 
 // General function to refresh the displayed table data. 
@@ -189,6 +192,18 @@ function fetchTableData() {
 
 
 // MY WORK
+
+async function loadSQL() {
+    const response = await fetch('/start', {
+        method: 'GET'
+    });
+    if (response.success) {
+        console.log("Ran sql script");
+        loadCompBuildTable();
+    } else {
+        console.log("Failed to start sql script");
+    }
+}
 
 async function loadCompBuildTable() {
     const tableElement = document.getElementById('pcPartsTable');
@@ -215,36 +230,37 @@ async function loadCompBuildTable() {
     });
 }
 
-// Inserts new records into the demotable.
-async function insertPCPart(event) {
+async function updatePCPart(event) {
     event.preventDefault();
 
     const idValue = document.getElementById('insertPartId').value;
     const modelValue = document.getElementById('insertModel').value;
     const nameValue = document.getElementById('insertPartName').value;
     const ratingValue = document.getElementById('insertRating').value;
+    const manufacturerValue = document.getElementById('insertManufacturer').value;
 
-    const response = await fetch('/insert-PID', {
+    const response = await fetch('/update-PCParts', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            id: idValue,
-            name: nameValue,
-            rating: ratingValue,
-            model: modelValue
+            PartID: idValue,
+            Name: nameValue,
+            Model: modelValue,
+            Rating: ratingValue,
+            ManufacturerID: manufacturerValue
         })
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('insertResultMsg');
+    const messageElement = document.getElementById('updatePartResultMsg');
 
     if (responseData.success) {
-        messageElement.textContent = "Data inserted successfully!";
+        messageElement.textContent = "Data updated successfully!";
         loadCompBuildTable();
     } else {
-        messageElement.textContent = "Error inserting data!";
+        messageElement.textContent = "Error updating data!";
     }
 }
 
