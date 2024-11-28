@@ -8,7 +8,7 @@ async function loadPcPartsListIDs() {
     const tableElement = document.getElementById('pcPartsTable');
     const tableBody = tableElement.querySelector('tbody');
 
-    const response = await fetch('/selectAllPcParts', {
+    const response = await fetch('/SelectPCParts', {
         method: 'GET'
     });
 

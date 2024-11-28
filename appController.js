@@ -6,14 +6,14 @@ const router = express.Router();
 // ----------------------------------------------------------
 // API endpoints
 // Modify or extend these routes based on your project's needs.
-// router.get('/check-db-connection', async (req, res) => {
-//     const isConnect = await appService.testOracleConnection();
-//     if (isConnect) {
-//         res.send('connected');
-//     } else {
-//         res.send('unable to connect');
-//     }
-// });
+router.get('/check-db-connection', async (req, res) => {
+    const isConnect = await appService.testOracleConnection();
+    if (isConnect) {
+        res.send('connected');
+    } else {
+        res.send('unable to connect');
+    }
+});
 
 // router.get('/demotable', async (req, res) => {
 //     const tableContent = await appService.fetchDemotableFromDb();
@@ -66,40 +66,6 @@ const router = express.Router();
 
 
 // module.exports = router;
-
-
-// ----------------------------------------------------------
-router.get('/check-db-connection', async (req, res) => {
-    console.log("GET - check-db-connection");
-    const isConnect = await appService.testOracleConnection();
-    if (isConnect) {
-        res.send('connected');
-    } else {
-        res.send('unable to connect');
-    }
-});
-
-router.get('/selectAllPcParts', async (req, res) => {
-    console.log("GET - fetch");
-    const tableContent = await appService.fetch();
-    res.json({data: tableContent});
-});
-
-router.get('/count', async (req, res) => {
-    console.log("GET - count");
-    const tableCount = await appService.count();
-    if (tableCount >= 0) {
-        res.json({ 
-            success: true,  
-            count: tableCount
-        });
-    } else {
-        res.status(500).json({ 
-            success: false, 
-            count: tableCount
-        });
-    }
-});
 
 
 // ----------------------------------------------------------
@@ -287,6 +253,30 @@ router.post('/division', async (req, res) => {
 
 
 // ----------------------------------------------------------
+router.get('/SelectPCParts', async (req, res) => {
+    console.log("GET - SelectPCParts");
+    const tableContent = await appService.SelectPCParts();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectManufacturer', async (req, res) => {
+    console.log("GET - SelectManufacturer");
+    const tableContent = await appService.SelectManufacturer();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectRetailer', async (req, res) => {
+    console.log("GET - SelectRetailer");
+    const tableContent = await appService.SelectRetailer();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectPCPartsList', async (req, res) => {
+    console.log("GET - SelectPCPartsList");
+    const tableContent = await appService.SelectPCPartsList();
+    res.json({data: tableContent});
+});
+
 router.get('/SelectPCPartsFromPCPartsList', async (req, res) => {
     console.log("POST - SelectPCPartsFromPCPartsList");
     // 2.2.2 Sanitization
@@ -301,18 +291,6 @@ router.get('/SelectPCPartsFromPCPartsList', async (req, res) => {
     } else {
         res.status(500).json({ success: false });
     }
-});
-
-router.get('/SelectManufacturer', async (req, res) => {
-    console.log("GET - SelectManufacturer");
-    const tableContent = await appService.SelectManufacturer();
-    res.json({data: tableContent});
-});
-
-router.get('/SelectRetailer', async (req, res) => {
-    console.log("GET - SelectRetailer");
-    const tableContent = await appService.SelectRetailer();
-    res.json({data: tableContent});
 });
 
 
