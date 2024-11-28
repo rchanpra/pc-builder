@@ -418,3 +418,4 @@ insert into Score (TestID, ListID, TestScore) values
 insert into Score (TestID, ListID, TestScore) values
 (5, 1, 88);
 
+COMMIT WORK;
