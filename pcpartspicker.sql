@@ -386,8 +386,7 @@ insert into Compatibility (ParentPartID, ChildPartID) values
 (5, 1);
 
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(1, 1, 100, 699, '01-Oct-23');
--- (1, 1, 100, 699, '2023-10-01');
+(1, 1, 100, 699, '2023-10-01');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
 (2, 2, 50, 299, '2023-10-02');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
@@ -398,15 +397,15 @@ insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
 (5, 5, 200, 99, '2023-10-05');
 
 insert into Contain (ListID, PartID) values
-(1, 2);
+(1, 1);
 insert into Contain (ListID, PartID) values 
-(2, 3);
+(1, 2);
 insert into Contain (ListID, PartID) values
-(3, 4);
+(1, 3);
 insert into Contain (ListID, PartID) values
-(4, 5);
+(1, 4);
 insert into Contain (ListID, PartID) values
-(5, 1);
+(2, 1);
 
 insert into Score (TestID, ListID, TestScore) values
 (1, 2, 99);
