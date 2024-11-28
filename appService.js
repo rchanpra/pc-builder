@@ -370,6 +370,47 @@ async function DIVISION() {
     });
 }
 
+
+// ----------------------------------------------------------
+async function SelectPCPartsFromPCPartsList(ListID) {
+    console.log("SelectPCPartsFromPCPartsList");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `Select Name, Model, Rating 
+            FROM (Select * FROM Contain c WHERE c.ListID=1) cp 
+            JOIN PCParts p ON p.PartID=cp.PartID`,
+            [ListID],
+            { autoCommit: true }
+        );
+        console.log("DONE");
+        return result.rows;
+    }).catch(() => {
+        return false;
+    });
+}
+
+async function SelectManufacturer() {
+    console.log("SelectManufacturer");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM Manufacturer');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectRetailer() {
+    console.log("SelectRetailer");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM Retailer');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+
+// ----------------------------------------------------------
 module.exports = {
     testOracleConnection,
     fetch,
@@ -383,5 +424,8 @@ module.exports = {
     GROUPBY,
     HAVING,
     NESTEDGROUPBY,
-    DIVISION
+    DIVISION,
+    SelectPCPartsFromPCPartsList,
+    SelectManufacturer,
+    SelectRetailer
 };
