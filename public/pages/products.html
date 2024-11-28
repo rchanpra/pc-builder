@@ -10,19 +10,54 @@
     <link rel="stylesheet" href="../css/index.css">
 </head>
 
+<nav id="main-nav" class="topnav">
+    <a href="/">Home</a>
+    <a href="builder.html">List Builder</a>
+    <a href="products.html">PC Parts</a>
+    <a href="guides.html">Guides</a>
+    <a href="builds.html">Complete Builds</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="retailers.html">Retailers</a>
+    <a href="manufacturer.html">Manufacturers</a>
+</nav>
+
 <body>
     <div id="root">
-        <nav id="main-nav" class="topnav">
-            <a href="/">Home</a>
-            <a href="builder.html">List Builder</a>
-            <a href="products.html">PC Parts</a>
-            <a href="guides.html">Guides</a>
-            <a href="builds.html">Complete Builds</a>
-            <a href="benchmarks.html">Benchmarks</a>
-            <a href="retailers.html">Retailers</a>
-            <a href="manufacturer.html">Manufacturers</a>
-        </nav>
         <h1>Products Page</h1>
     </div>
+
+    <h2>List of PC Parts</h2>
+    <table id="pcPartsTable" border="1">
+        <thead>
+            <tr>
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>Part ID</th>
+                <th>Name</th>
+                <th>Model #</th>
+                <th>Rating</th>
+                <th>Manufacturer ID</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <br>
+    <hr><br> <!-- ========================================================================= -->
+
+    <h2> Update Values in PC Parts Table </h2>
+    <form id="updatePCPartsTable">
+        ID: <input type="number" id="insertPartId" placeholder="Select Existing ID" required> <br><br>
+        Name: <input type="text" id="insertPartName" placeholder="Enter New Name" maxlength="20"> <br><br>
+        Model #: <input type="text" id="insertModel" placeholder="Enter New Model" maxlength="20"> <br><br>
+        Rating: <input type="number" id="insertRating" placeholder="Enter New Rating" min="1" max="10"> <br><br>
+        <button type="submit"> insert </button> <br>
+    </form>
+    <div id="updatePartResultMsg"></div>
+
+    <!-- ===================================================================================== -->
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="../js/products.js"></script>
+
 </body>
 </html>

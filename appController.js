@@ -142,8 +142,8 @@ router.post("/update", async (req, res) => {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
 
-    const { PartID, Name, Model, Rating, ManufacturerID } = req.body;
-    const result = await appService.UPDATE(PartID, Name, Model, Rating, ManufacturerID);
+    const { PartID, Name, Model, Rating } = req.body;
+    const result = await appService.UPDATE(PartID, Name, Model, Rating);
     if (result) {
         res.json({ success: true });
     } else {

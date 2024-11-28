@@ -202,7 +202,7 @@ async function INSERT(ListID, PartID) {
 
 // 2.1.2 UPDATE
 // update pcparts
-async function UPDATE(PartID, Name, Model, Rating, ManufacturerID) {
+async function UPDATE(PartID, Name, Model, Rating) {
     console.log("UPDATE");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
