@@ -384,14 +384,15 @@ async function SelectPCPartsFromPCPartsList(ListID) {
     console.log("SelectPCPartsFromPCPartsList");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `Select Name, Model, Rating 
-            FROM (Select * FROM Contain c WHERE c.ListID=1) cp 
+            `Select cp.PartID, Name, Model, Rating, ManufacturerID
+            FROM (Select * FROM Contain c WHERE c.ListID=:ListID) cp 
             JOIN PCParts p ON p.PartID=cp.PartID`,
             [ListID],
             { autoCommit: true }
         );
         return result.rows;
     }).catch(() => {
+        console.log("bad")
         return false;
     });
 }

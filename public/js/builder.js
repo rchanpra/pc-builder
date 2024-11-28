@@ -5,11 +5,12 @@ window.onload = function() {
 };
 
 
+// load a list of the lists of pc builds
 async function loadPcPartsListIDs() {
     const tableElement = document.getElementById('listOfListIDs');
     const tableBody = tableElement.querySelector('tbody');
 
-    const response = await fetch('/TODO', {
+    const response = await fetch('/SelectPCPartsList', {
         method: 'GET'
     });
 
@@ -29,86 +30,74 @@ async function loadPcPartsListIDs() {
     });
 }
 
-async function loadPcPartsList() {
-    const tableElement = document.getElementById('listOfListIDs');
-    const tableBody = tableElement.querySelector('tbody');
+// Given a list ID load the pc parts in that list and display on table
 
-    const response = await fetch('/TODO', {
-        method: 'GET'
-    });
-
-    const responseData = await response.json();
-    const tableContent = responseData.data;
-
-    if (tableBody) {
-        tableBody.innerHTML = '';
-    }
-
-    tableContent.forEach(part => {
-        const row = tableBody.insertRow();
-        part.forEach((field, index) => {
-            const cell = row.insertCell(index);
-            cell.textContent = field;
-        });
-    });
-}
-
-async function deletePcPartFromList() {
-    const tableElement = document.getElementById('listOfListIDs');
-    const tableBody = tableElement.querySelector('tbody');
-
-    const response = await fetch('/TODO', {
-        method: 'GET'
-    });
-
-    const responseData = await response.json();
-    const tableContent = responseData.data;
-
-    if (tableBody) {
-        tableBody.innerHTML = '';
-    }
-
-    tableContent.forEach(part => {
-        const row = tableBody.insertRow();
-        part.forEach((field, index) => {
-            const cell = row.insertCell(index);
-            cell.textContent = field;
-        });
-    });
-}
-
-
-
-async function updatePCPart(event) {
+async function loadPcPartsList(event) {
     event.preventDefault();
+    const tableElement = document.getElementById('pcPartsList');
+    const tableBody = tableElement.querySelector('tbody');
 
-    const idValue = document.getElementById('insertPartId').value;
-    const modelValue = document.getElementById('insertModel').value;
-    const nameValue = document.getElementById('insertPartName').value;
-    const ratingValue = document.getElementById('insertRating').value;
-    const manufacturerValue = document.getElementById('insertManufacturer').value;
+    const idValue = document.getElementById('insertListId').value;
 
-    const response = await fetch('/update', {
+    const response = await fetch('/SelectPCPartsFromPCPartsList', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            PartID: idValue,
-            Name: nameValue,
-            Model: modelValue,
-            Rating: ratingValue,
-            ManufacturerID: manufacturerValue
+            ListID: idValue
         })
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('updatePartResultMsg');
-
+    const messageElement = document.getElementById('loadListResultMsg');
     if (responseData.success) {
-        messageElement.textContent = "Data updated successfully!";
-        loadPcPartsListIDs();
+        const tableContent = responseData.data;
+        console.log(tableContent);
+        messageElement.textContent = "Listed loaded successfully!";
+        if (tableBody) {
+            tableBody.innerHTML = '';
+        }
+    
+        tableContent.forEach(part => {
+            const row = tableBody.insertRow();
+            part.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
     } else {
         messageElement.textContent = responseData.message;
     }
 }
+
+
+
+// Given a partID delete the part from the list currently selected
+
+async function deletePcPartFromList(event) {
+    event.preventDefault();
+    const tableElement = document.getElementById('listOfListIDs');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const response = await fetch('/TODO', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(part => {
+        const row = tableBody.insertRow();
+        part.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
+
+

@@ -277,7 +277,7 @@ router.get('/SelectPCPartsList', async (req, res) => {
     res.json({data: tableContent});
 });
 
-router.get('/SelectPCPartsFromPCPartsList', async (req, res) => {
+router.post('/SelectPCPartsFromPCPartsList', async (req, res) => {
     console.log("POST - SelectPCPartsFromPCPartsList");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
@@ -287,10 +287,12 @@ router.get('/SelectPCPartsFromPCPartsList', async (req, res) => {
     const {ListID} = req.body;
     const result = await appService.SelectPCPartsFromPCPartsList(ListID);
     if (result) {
-        res.json(result);
+        res.json({success: true, data: result});
     } else {
-        res.status(500).json({ success: false });
+        res.status(500).json({ success: false , message: "Not a real list ID, please enter a valid one"});
     }
+
+    
 });
 
 

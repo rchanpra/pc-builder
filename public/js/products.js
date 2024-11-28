@@ -1,10 +1,10 @@
 window.onload = function() {
-    loadPcPartsListIDs();
+    loadPcPartsIDs();
     document.getElementById("updatePCPartsTable").addEventListener("submit", updatePCPart);
 };
 
 
-async function loadPcPartsListIDs() {
+async function loadPcPartsIDs() {
     const tableElement = document.getElementById('pcPartsTable');
     const tableBody = tableElement.querySelector('tbody');
 
@@ -57,7 +57,7 @@ async function updatePCPart(event) {
 
     if (responseData.success) {
         messageElement.textContent = "Data updated successfully!";
-        loadPcPartsListIDs();
+        loadPcPartsIDs();
     } else {
         messageElement.textContent = responseData.message;
     }
