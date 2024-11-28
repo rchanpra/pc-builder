@@ -68,13 +68,13 @@ async function withOracleDB(action) {
 // ----------------------------------------------------------
 // Core functions for database operations
 // Modify these functions, especially the SQL queries, based on your project's requirements and design.
-// async function testOracleConnection() {
-//     return await withOracleDB(async (connection) => {
-//         return true;
-//     }).catch(() => {
-//         return false;
-//     });
-// }
+async function testOracleConnection() {
+    return await withOracleDB(async (connection) => {
+        return true;
+    }).catch(() => {
+        return false;
+    });
+}
 
 // async function fetchDemotableFromDb() {
 //     return await withOracleDB(async (connection) => {
@@ -153,36 +153,6 @@ async function withOracleDB(action) {
 
 
 // ----------------------------------------------------------
-async function testOracleConnection() {
-    console.log("testOracleConnection");
-    return await withOracleDB(async (connection) => {
-        return true;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function fetch() {
-    console.log("fetch");
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM PcParts');
-        return result.rows;
-    }).catch(() => {
-        return [];
-    });
-}
-
-async function count() {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT Count(*) FROM PcParts');
-        return result.rows[0][0];
-    }).catch(() => {
-        return -1;
-    });
-}
-
-
-// ----------------------------------------------------------
 // 2.1.1 INSERT
 // insert pcparts into pcpartslist
 async function INSERT(ListID, PartID) {
@@ -193,7 +163,6 @@ async function INSERT(ListID, PartID) {
             [ListID, PartID],
             { autoCommit: true }
         );
-        console.log("DONE");
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
@@ -219,7 +188,6 @@ async function UPDATE(PartID, Name, Model, Rating, ManufacturerID) {
             [Name, Model, Rating, ManufacturerID, PartID],
             { autoCommit: true }
         );
-        console.log("DONE");
         return result.rowsAffected > 0;
     }).catch(() => {
         return false;
@@ -238,7 +206,6 @@ async function DELETE(ListID, PartID) {
             [ListID, PartID],
             { autoCommit: true }
         );
-        console.log("DONE");
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
@@ -257,7 +224,6 @@ async function SELECTION(Name, Model) {
             [Name, Model],
             { autoCommit: true }
         );
-        console.log("DONE");
         return result.rows;
     }).catch(() => {
         return false;
@@ -275,7 +241,6 @@ async function PROJECTION(attributes, tablename) {
             `,
             [attributes, tablename]
         );
-        console.log("DONE");
         return result; // stub
     }).catch(() => {
         return false;
@@ -296,7 +261,6 @@ async function JOIN(rating) {
             `,
             [rating]
         );
-        console.log("DONE");
         return result; // stub
     }).catch(() => {
         return false;
@@ -314,7 +278,6 @@ async function GROUPBY() {
             GROUP BY ManufacturerID
             `
         );
-        console.log("DONE");
         return result; // stub
     }).catch(() => {
         return false;
@@ -334,7 +297,6 @@ async function HAVING(rating) {
             `,
             [rating]
         );
-        console.log("DONE");
         return result; // stub
     }).catch(() => {
         return false;
@@ -354,7 +316,6 @@ async function NESTEDGROUPBY() {
                     GROUP BY ManufacturerID, ThreadCount) 
             GROUP BY ThreadCount
         `);
-        console.log("DONE");
         return result; // stub
     }).catch(() => {
         return false;
@@ -372,7 +333,6 @@ async function DIVISION() {
                 EXCEPT
                 (SELECT s.RetailerID FROM Sell s WHERE p.PartID = s.PartID)
         `);
-        console.log("DONE");
         return result; // stub
     }).catch(() => {
         return false;
@@ -381,20 +341,13 @@ async function DIVISION() {
 
 
 // ----------------------------------------------------------
-async function SelectPCPartsFromPCPartsList(ListID) {
-    console.log("SelectPCPartsFromPCPartsList");
+async function SelectPCParts() {
+    console.log("SelectPCParts");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `Select Name, Model, Rating 
-            FROM (Select * FROM Contain c WHERE c.ListID=1) cp 
-            JOIN PCParts p ON p.PartID=cp.PartID`,
-            [ListID],
-            { autoCommit: true }
-        );
-        console.log("DONE");
+        const result = await connection.execute('SELECT * FROM PcParts');
         return result.rows;
     }).catch(() => {
-        return false;
+        return [];
     });
 }
 
@@ -417,13 +370,36 @@ async function SelectRetailer() {
         return [];
     });
 }
+async function SelectPCPartsList() {
+    console.log("SelectPCPartsList");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM PCPartsList');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectPCPartsFromPCPartsList(ListID) {
+    console.log("SelectPCPartsFromPCPartsList");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `Select Name, Model, Rating 
+            FROM (Select * FROM Contain c WHERE c.ListID=1) cp 
+            JOIN PCParts p ON p.PartID=cp.PartID`,
+            [ListID],
+            { autoCommit: true }
+        );
+        return result.rows;
+    }).catch(() => {
+        return false;
+    });
+}
 
 
 // ----------------------------------------------------------
 module.exports = {
     testOracleConnection,
-    fetch,
-    count,
     INSERT,
     UPDATE,
     DELETE,
@@ -434,7 +410,9 @@ module.exports = {
     HAVING,
     NESTEDGROUPBY,
     DIVISION,
-    SelectPCPartsFromPCPartsList,
+    SelectPCParts,
     SelectManufacturer,
-    SelectRetailer
+    SelectRetailer,
+    SelectPCPartsList,
+    SelectPCPartsFromPCPartsList
 };
