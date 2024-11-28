@@ -83,7 +83,7 @@ function Sanitization(req) {
     return true;
 }
 
-router.get('/demotable', async (req, res) => {
+router.get('/selectAllPcParts', async (req, res) => {
     const tableContent = await appService.fetchDemotableFromDb();
     res.json({data: tableContent});
 });

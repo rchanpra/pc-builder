@@ -166,18 +166,10 @@ async function fetchDemotableFromDb() {
 async function initiateDemotable() {
     return await withOracleDB(async (connection) => {
         try {
-            // await connection.execute(`DROP TABLE DEMOTABLE`);
             await connection.execute(`start pcpartspicker.sql`);
         } catch(err) {
-            console.log('Table might not exist, proceeding to create...');
+            console.log(err);
         }
-
-        // const result = await connection.execute(`
-        //     CREATE TABLE DEMOTABLE (
-        //         id NUMBER PRIMARY KEY,
-        //         name VARCHAR2(20)
-        //     )
-        // `);
         return true;
     }).catch(() => {
         return false;
