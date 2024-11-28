@@ -4,6 +4,7 @@ window.onload = function() {
     document.getElementById("deletePartID").addEventListener("submit", deletePcPartFromList);
 };
 
+let currentListID;
 
 // load a list of the lists of pc builds
 async function loadPcPartsListIDs() {
@@ -37,7 +38,7 @@ async function loadPcPartsList(event) {
     const tableElement = document.getElementById('pcPartsList');
     const tableBody = tableElement.querySelector('tbody');
 
-    const idValue = document.getElementById('insertListId').value;
+    currentListID = document.getElementById('insertListId').value;
 
     const response = await fetch('/SelectPCPartsFromPCPartsList', {
         method: 'POST',
@@ -45,7 +46,7 @@ async function loadPcPartsList(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            ListID: idValue
+            ListID: currentListID
         })
     });
 
