@@ -170,7 +170,7 @@ router.post('/delete', async (req, res) => {
 
 // 2.1.4 Selection
 router.get('/selection', async (req, res) => {
-    console.log("GET - SELECTION");
+    console.log("POST - SELECTION");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });

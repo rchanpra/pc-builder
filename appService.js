@@ -193,6 +193,7 @@ async function INSERT(ListID, PartID) {
             [ListID, PartID],
             { autoCommit: true }
         );
+        console.log("DONE");
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
@@ -209,6 +210,7 @@ async function UPDATE(PartID, Name, Model, Rating, ManufacturerID) {
             [Name, Model, Rating, PartID],
             { autoCommit: true }
         );
+        console.log("DONE");
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
@@ -227,6 +229,7 @@ async function DELETE(ListID, PartID) {
             [ListID, PartID],
             { autoCommit: true }
         );
+        console.log("DONE");
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
         return false;
@@ -245,10 +248,10 @@ async function SELECTION(Name, Model) {
             [Name, Model],
             { autoCommit: true }
         );
-        console.log("SELECTION done")
+        console.log("DONE");
         return result.rows;
     }).catch(() => {
-        return [];
+        return false;
     });
 }
 
@@ -263,12 +266,8 @@ async function PROJECTION(attributes, tablename) {
             `,
             [attributes, tablename]
         );
-        console.log("PROJ done")
-        console.log(result);
-        return {
-            result: result,
-            bool: true
-        };// still thinking the return value
+        console.log("DONE");
+        return result; // stub
     }).catch(() => {
         return false;
     });
@@ -288,12 +287,8 @@ async function JOIN(rating) {
             `,
             [rating]
         );
-        console.log("JOIN done")
-        console.log(result);
-        return {
-            result: result,
-            bool: true
-        };// still thinking the return value
+        console.log("DONE");
+        return result; // stub
     }).catch(() => {
         return false;
     });
@@ -310,12 +305,8 @@ async function GROUPBY() {
             GROUP BY ManufacturerID
             `
         );
-        console.log("AGGB done")
-        console.log(result);
-        return {
-            result: result,
-            bool: true
-        };// still thinking the return value
+        console.log("DONE");
+        return result; // stub
     }).catch(() => {
         return false;
     });
@@ -334,12 +325,8 @@ async function HAVING(rating) {
             `,
             [rating]
         );
-        console.log("AGH done")
-        console.log(result);
-        return {
-            result: result,
-            bool: true
-        };// still thinking the return value
+        console.log("DONE");
+        return result; // stub
     }).catch(() => {
         return false;
     });
@@ -358,12 +345,8 @@ async function NESTEDGROUPBY() {
                     GROUP BY ManufacturerID, ThreadCount) 
             GROUP BY ThreadCount
         `);
-        console.log("NAGGB done")
-        console.log(result);
-        return {
-            result: result,
-            bool: true
-        };// still thinking the return value
+        console.log("DONE");
+        return result; // stub
     }).catch(() => {
         return false;
     });
@@ -380,12 +363,8 @@ async function DIVISION() {
                 EXCEPT
                 (SELECT s.RetailerID FROM Sell s WHERE p.PartID = s.PartID)
         `);
-        console.log("DIVISION done")
-        console.log(result);
-        return {
-            result: result,
-            bool: true
-        };// still thinking the return value
+        console.log("DONE");
+        return result; // stub
     }).catch(() => {
         return false;
     });
