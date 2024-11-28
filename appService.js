@@ -64,34 +64,131 @@ async function withOracleDB(action) {
     }
 }
 
-//---------- general use
 
-async function initiate() {
+// ----------------------------------------------------------
+// Core functions for database operations
+// Modify these functions, especially the SQL queries, based on your project's requirements and design.
+async function testOracleConnection() {
     return await withOracleDB(async (connection) => {
-        try {
-            await connection.execute(`start pcpartspicker.sql`);
-        } catch(err) {
-            console.log('Table might not exist, proceeding to create...');
-        }
         return true;
     }).catch(() => {
         return false;
     });
 }
 
-async function select() {
+// async function fetchDemotableFromDb() {
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute('SELECT * FROM DEMOTABLE');
+//         return result.rows;
+//     }).catch(() => {
+//         return [];
+//     });
+// }
+
+// async function initiateDemotable() {
+//     return await withOracleDB(async (connection) => {
+//         try {
+//             await connection.execute(`DROP TABLE DEMOTABLE`);
+//         } catch(err) {
+//             console.log('Table might not exist, proceeding to create...');
+//         }
+
+//         const result = await connection.execute(`
+//             CREATE TABLE DEMOTABLE (
+//                 id NUMBER PRIMARY KEY,
+//                 name VARCHAR2(20)
+//             )
+//         `);
+//         return true;
+//     }).catch(() => {
+//         return false;
+//     });
+// }
+
+// async function insertDemotable(id, name) {
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute(
+//             `INSERT INTO DEMOTABLE (id, name) VALUES (:id, :name)`,
+//             [id, name],
+//             { autoCommit: true }
+//         );
+
+//         return result.rowsAffected && result.rowsAffected > 0;
+//     }).catch(() => {
+//         return false;
+//     });
+// }
+
+// async function updateNameDemotable(oldName, newName) {
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute(
+//             `UPDATE DEMOTABLE SET name=:newName where name=:oldName`,
+//             [newName, oldName],
+//             { autoCommit: true }
+//         );
+
+//         return result.rowsAffected && result.rowsAffected > 0;
+//     }).catch(() => {
+//         return false;
+//     });
+// }
+
+// async function countDemotable() {
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute('SELECT Count(*) FROM DEMOTABLE');
+//         return result.rows[0][0];
+//     }).catch(() => {
+//         return -1;
+//     });
+// }
+
+// module.exports = {
+//     testOracleConnection,
+//     fetchDemotableFromDb,
+//     initiateDemotable, 
+//     insertDemotable, 
+//     updateNameDemotable, 
+//     countDemotable
+// };
+
+
+// ----------------------------------------------------------
+async function fetchDemotableFromDb() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM PCParts');
+        // const result = await connection.execute('SELECT * FROM DEMOTABLE');
+        const result = await connection.execute('SELECT * FROM PcParts');
         return result.rows;
     }).catch(() => {
         return [];
     });
 }
 
+async function initiateDemotable() {
+    return await withOracleDB(async (connection) => {
+        try {
+            // await connection.execute(`DROP TABLE DEMOTABLE`);
+            await connection.execute(`start pcpartspicker.sql`);
+        } catch(err) {
+            console.log('Table might not exist, proceeding to create...');
+        }
 
-//----------
-// 2.1.1 INSERT user can add partid to a pcpartlist with list id.
-async function insertPCPL(ListID, PartID) {
+        // const result = await connection.execute(`
+        //     CREATE TABLE DEMOTABLE (
+        //         id NUMBER PRIMARY KEY,
+        //         name VARCHAR2(20)
+        //     )
+        // `);
+        return true;
+    }).catch(() => {
+        return false;
+    });
+}
+
+
+// ----------------------------------------------------------
+// 2.1.1 INSERT
+// user can add partid to a pcpartlist with list id.
+async function INSERT(ListID, PartID) {
     console.log("Performing INSERT"); 
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -105,8 +202,9 @@ async function insertPCPL(ListID, PartID) {
     });
 }
 
-//2.1.2 UPDATE pcparts
-async function updatePCP(PartID, Name, Model, Rating, ManufacturerID) {
+// 2.1.2 UPDATE
+// pcparts
+async function UPDATE(PartID, Name, Model, Rating, ManufacturerID) {
     console.log("Performing UPDATE"); 
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -120,8 +218,8 @@ async function updatePCP(PartID, Name, Model, Rating, ManufacturerID) {
     });
 }
 
-//2.1.3 DELETE 
-async function deletePID(ListID, PartID) {
+// 2.1.3 DELETE 
+async function DELETE(ListID, PartID) {
     console.log("Performing DELETE"); 
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -136,7 +234,7 @@ async function deletePID(ListID, PartID) {
     });
 }
 
-//2.1.4 Selection
+// 2.1.4 Selection
 async function SELECTION(name, model) {
     console.log("Performing SELECTION"); 
 
@@ -156,8 +254,8 @@ async function SELECTION(name, model) {
     });
 }
 
-//2.1.5 Projection
-async function PROJ(attributes, tablename) {
+// 2.1.5 Projection
+async function PROJECTION(attributes, tablename) {
     console.log("Performing PROJ"); 
 
     return await withOracleDB(async (connection) => {
@@ -180,7 +278,7 @@ async function PROJ(attributes, tablename) {
 }
 
 
-//2.1.6 Join
+// 2.1.6 Join
 async function JOIN(rating) {
     console.log("Performing JOIN"); 
 
@@ -205,8 +303,8 @@ async function JOIN(rating) {
         return false;
     });
 }
-//2.1.7 Aggregation with GROUP BY
-async function AGGB() {
+// 2.1.7 Aggregation with GROUP BY
+async function GROUPBY() {
     console.log("Performing Aggregation with GROUP BY"); 
 
     return await withOracleDB(async (connection) => {
@@ -228,8 +326,8 @@ async function AGGB() {
     });
 }
 
-//2.1.8 Aggregation with HAVING
-async function AGH(rating) {
+// 2.1.8 Aggregation with HAVING
+async function HAVING(rating) {
     console.log("Performing Aggregation with HAVING"); 
 
     return await withOracleDB(async (connection) => {
@@ -253,8 +351,8 @@ async function AGH(rating) {
     });
 }
 
-//2.1.9 Nested aggregation with GROUP BY
-async function NAGGB() {
+// 2.1.9 Nested aggregation with GROUP BY
+async function NESTEDGROUPBY() {
     console.log("Nested aggregation with GROUP BY"); 
 
     return await withOracleDB(async (connection) => {
@@ -278,7 +376,7 @@ async function NAGGB() {
     });
 }
 
-//2.1.10 Division
+// 2.1.10 Division
 async function DIVISION() {
     console.log("Division"); 
 
@@ -301,102 +399,18 @@ async function DIVISION() {
     });
 }
 
-
-
-// ----------------------------------------------------------
-// Core functions for database operations
-// Modify these functions, especially the SQL queries, based on your project's requirements and design.
-async function testOracleConnection() {
-    return await withOracleDB(async (connection) => {
-        return true;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function fetchDemotableFromDb() {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM DEMOTABLE');
-        return result.rows;
-    }).catch(() => {
-        return [];
-    });
-}
-
-async function initiateDemotable() {
-    return await withOracleDB(async (connection) => {
-        try {
-            await connection.execute(`DROP TABLE DEMOTABLE`);
-        } catch(err) {
-            console.log('Table might not exist, proceeding to create...');
-        }
-
-        const result = await connection.execute(`
-            CREATE TABLE DEMOTABLE (
-                id NUMBER PRIMARY KEY,
-                name VARCHAR2(10)
-            )
-        `);
-        return true;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function insertDemotable(id, name) {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `INSERT INTO DEMOTABLE (id, name) VALUES (:id, :name)`,
-            [id, name],
-            { autoCommit: true }
-        );
-
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function updateNameDemotable(oldName, newName) {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `UPDATE DEMOTABLE SET name=:newName where name=:oldName`,
-            [newName, oldName],
-            { autoCommit: true }
-        );
-
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
-    });
-}
-
-async function countDemotable() {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT Count(*) FROM DEMOTABLE');
-        return result.rows[0][0];
-    }).catch(() => {
-        return -1;
-    });
-}
-
 module.exports = {
-    insertPCPL,
-    updatePCP,
-    deletePID,
-    PROJ,
-    JOIN,
-    AGGB,
-    AGH,
-    NAGGB,
-    DIVISION,
-    select,
-    initiate,
-    //----------DEMO FUNCTION BELOW--------------
     testOracleConnection,
     fetchDemotableFromDb,
-    initiateDemotable, 
-    insertDemotable, 
-    updateNameDemotable, 
-    countDemotable
+    initiateDemotable,
+    INSERT,
+    UPDATE,
+    DELETE,
+    SELECTION,
+    PROJECTION,
+    JOIN,
+    GROUPBY,
+    HAVING,
+    NESTEDGROUPBY,
+    DIVISION
 };
