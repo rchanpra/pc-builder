@@ -65,6 +65,20 @@ async function withOracleDB(action) {
 }
 
 //---------- general use
+
+async function initiate() {
+    return await withOracleDB(async (connection) => {
+        try {
+            await connection.execute(`start pcpartspicker.sql`);
+        } catch(err) {
+            console.log('Table might not exist, proceeding to create...');
+        }
+        return true;
+    }).catch(() => {
+        return false;
+    });
+}
+
 async function select() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM PCParts');
@@ -377,6 +391,7 @@ module.exports = {
     NAGGB,
     DIVISION,
     select,
+    initiate,
     //----------DEMO FUNCTION BELOW--------------
     testOracleConnection,
     fetchDemotableFromDb,

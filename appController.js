@@ -29,6 +29,23 @@ function Sanitization(req) {
     return true;
 }
 
+// Listen to START endpoint
+router.get('/start', async (req, res) => {
+    console.log("GET - START");
+
+    //2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const isStart = await appService.initiate();
+    if (isStart) {
+        res.send('started');
+    } else {
+        res.send('unable to start');
+    }
+});
+
 // Listen to SELECT endpoint
 router.get('/select', async (req, res) => {
     console.log("GET - SELECT");
