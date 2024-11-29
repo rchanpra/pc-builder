@@ -296,7 +296,7 @@ async function GROUPBY() {
             GROUP BY ManufacturerID
             `
         );
-        return result; // stub
+        return result.rows;
     }).catch(() => {
         return false;
     });
@@ -315,7 +315,7 @@ async function HAVING(rating) {
             `,
             [rating]
         );
-        return result; // stub
+        return result.rows;
     }).catch(() => {
         return false;
     });
@@ -391,10 +391,35 @@ async function SelectRetailer() {
         return [];
     });
 }
+
 async function SelectPCPartsList() {
     console.log("SelectPCPartsList");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM PCPartsList');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectBenchmarkTest() {
+    console.log("SelectBenchmarkTest");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM BenchmarkTest');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectSell() {
+    console.log("SelectSell");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID, s.Price, s.DatePriced, r.RetailerID, r.Name, r. Website
+            FROM Sell s
+            JOIN Retailer r ON r.RetailerID=s.RetailerID
+            JOIN PCParts p ON p.PartID=s.PartID`);
         return result.rows;
     }).catch(() => {
         return [];
@@ -444,5 +469,7 @@ module.exports = {
     SelectManufacturer,
     SelectRetailer,
     SelectPCPartsList,
+    SelectBenchmarkTest,
+    SelectSell,
     SelectPCPartsFromPCPartsList
 };

@@ -173,7 +173,6 @@ create table BenchmarkTest(
     TestID int,
     TestName varchar(50),
     Type varchar(50),
-    DateTested date,
 	primary key (TestID));
 
 grant select on BenchmarkTest to public;
@@ -212,6 +211,7 @@ create table Score(
 	TestID int,
 	ListID int,
 	TestScore int,
+    DateScored date,
 	primary key (TestID, ListID),
 	foreign key (TestID) references BenchmarkTest(TestID) on delete cascade,
 	foreign key (ListID) references Benchmark(ListID) on delete cascade);
@@ -363,16 +363,16 @@ insert into UserComment (CommentID, Text, Email, ListID) values
 insert into UserComment (CommentID, Text, Email, ListID) values
 (2, 'smh this build is not it', 'bob@gmail.com', 3);
 
-insert into BenchmarkTest (TestID, TestName, Type, DateTested) values
-(1, 'Cinebench R23', 'CPU', '2024-01-01');
-insert into BenchmarkTest (TestID, TestName, Type, DateTested) values
-(2, '3DMark', 'GPU', '2024-01-02');
-insert into BenchmarkTest (TestID, TestName, Type, DateTested) values
-(3, 'Prime95', 'CPU', '2024-01-03');
-insert into BenchmarkTest (TestID, TestName, Type, DateTested) values
-(4, 'CrystalDiskMark', 'Storage', '2024-01-04');
-insert into BenchmarkTest (TestID, TestName, Type, DateTested) values
-(5, 'UserBenchmark', 'Overall', '2024-01-05');
+insert into BenchmarkTest (TestID, TestName, Type) values
+(1, 'Cinebench R23', 'CPU');
+insert into BenchmarkTest (TestID, TestName, Type) values
+(2, '3DMark', 'GPU');
+insert into BenchmarkTest (TestID, TestName, Type) values
+(3, 'Prime95', 'CPU');
+insert into BenchmarkTest (TestID, TestName, Type) values
+(4, 'CrystalDiskMark', 'Storage');
+insert into BenchmarkTest (TestID, TestName, Type) values
+(5, 'UserBenchmark', 'Overall');
 
 insert into Compatibility (ParentPartID, ChildPartID) values
 (1, 2);
@@ -407,15 +407,15 @@ insert into Contain (ListID, PartID) values
 insert into Contain (ListID, PartID) values
 (2, 1);
 
-insert into Score (TestID, ListID, TestScore) values
-(1, 2, 99);
-insert into Score (TestID, ListID, TestScore) values 
-(2, 2, 54);
-insert into Score (TestID, ListID, TestScore) values
-(3, 1, 86);
-insert into Score (TestID, ListID, TestScore) values
-(4, 2, 18);
-insert into Score (TestID, ListID, TestScore) values
-(5, 1, 88);
+insert into Score (TestID, ListID, TestScore, DateScored) values
+(1, 2, 99, '2024-01-01');
+insert into Score (TestID, ListID, TestScore, DateScored) values 
+(2, 2, 54, '2024-01-02');
+insert into Score (TestID, ListID, TestScore, DateScored) values
+(3, 1, 86, '2024-01-03');
+insert into Score (TestID, ListID, TestScore, DateScored) values
+(4, 2, 18, '2024-01-04');
+insert into Score (TestID, ListID, TestScore, DateScored) values
+(5, 1, 88, '2024-01-05');
 
 commit work;
