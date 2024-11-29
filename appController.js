@@ -93,10 +93,12 @@ router.post("/insert", async (req, res) => {
 
     const { ListID, PartID } = req.body;
     const result = await appService.INSERT(ListID, PartID);
-    if (result) {
+    if (result == -1) {
+        res.status(500).json({ success: false , message: "Invalid list loaded, please choose a valid list first"});
+    } else if (result) {
         res.json({ success: true });
     } else {
-        res.status(500).json({ success: false });
+        res.status(500).json({ success: false , message: "Invalid part ID, please choose a valid pc part"});
     }
 });
 
@@ -128,10 +130,12 @@ router.post('/delete', async (req, res) => {
 
     const { ListID, PartID } = req.body;
     const result = await appService.DELETE(ListID, PartID);
-    if (result) {
+    if (result == -1) {
+        res.status(500).json({ success: false , message: "Invalid list loaded, please choose a valid list first"});
+    } else if (result) {
         res.json({ success: true });
     } else {
-        res.status(500).json({ success: false });
+        res.status(500).json({ success: false , message: "Invalid part ID, please choose a valid pc part"});
     }
 });
 
@@ -291,8 +295,6 @@ router.post('/SelectPCPartsFromPCPartsList', async (req, res) => {
     } else {
         res.status(500).json({ success: false , message: "Not a real list ID, please enter a valid one"});
     }
-
-    
 });
 
 

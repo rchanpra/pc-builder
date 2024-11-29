@@ -158,12 +158,21 @@ async function testOracleConnection() {
 async function INSERT(ListID, PartID) {
     console.log("INSERT");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
+        let result = await connection.execute(
+            'Select * FROM PCPartsList c WHERE c.ListID=:ListID',
+            [ListID]
+        );
+
+        if (result.rows.length == 0) {
+            return -1;
+        }
+
+        result = await connection.execute(
             `INSERT INTO Contain (ListID, PartID) VALUES (:ListID, :PartID)`,
             [ListID, PartID],
             { autoCommit: true }
         );
-        return result.rowsAffected && result.rowsAffected > 0;
+        return result.rowsAffected > 0;
     }).catch(() => {
         return false;
     });
@@ -199,14 +208,23 @@ async function UPDATE(PartID, Name, Model, Rating, ManufacturerID) {
 async function DELETE(ListID, PartID) {
     console.log("DELETE");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
+        let result = await connection.execute(
+            'Select * FROM PCPartsList c WHERE c.ListID=:ListID',
+            [ListID]
+        );
+
+        if (result.rows.length == 0) {
+            return -1;
+        }
+
+        result = await connection.execute(
             `DELETE
             FROM Contain
             WHERE ListID=:ListID AND PartID =:PartID`,
             [ListID, PartID],
             { autoCommit: true }
         );
-        return result.rowsAffected && result.rowsAffected > 0;
+        return result.rowsAffected > 0;
     }).catch(() => {
         return false;
     });
@@ -386,7 +404,16 @@ async function SelectPCPartsList() {
 async function SelectPCPartsFromPCPartsList(ListID) {
     console.log("SelectPCPartsFromPCPartsList");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
+        let result = await connection.execute(
+            'Select * FROM PCPartsList c WHERE c.ListID=:ListID',
+            [ListID]
+        );
+
+        if (result.rows.length == 0) {
+            return false;
+        }
+
+        result = await connection.execute(
             `Select cp.PartID, Name, Model, Rating, ManufacturerID
             FROM (Select * FROM Contain c WHERE c.ListID=:ListID) cp 
             JOIN PCParts p ON p.PartID=cp.PartID`,
@@ -395,7 +422,6 @@ async function SelectPCPartsFromPCPartsList(ListID) {
         );
         return result.rows;
     }).catch(() => {
-        console.log("bad")
         return false;
     });
 }
