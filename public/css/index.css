@@ -23,7 +23,8 @@ table {
     border-radius: 5px;
 }
 
-th, td {
+th,
+td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
 }
@@ -63,7 +64,8 @@ button:active {
 }
 
 /* INPUT STYLES */
-input, textarea {
+input,
+textarea {
     width: 100%;
     padding: 10px 15px;
     font-size: 16px;
@@ -75,7 +77,8 @@ input, textarea {
     margin-bottom: 10px;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #aaa;
 }
 
@@ -96,7 +99,6 @@ input::placeholder, textarea::placeholder {
 }
 
 #SellTable {
-    width: 1%;
     border-collapse: collapse;
     background-color: #fff;
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
@@ -110,4 +112,37 @@ input::placeholder, textarea::placeholder {
 
 #main-nav {
     text-align: center;
+}
+
+/* The sidenav */
+#mySidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #d3baba;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+/* The navigation menu links */
+#mySidenav div {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #000000;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+#mySidenav div:hover {
+    color: #f1f1f1;
+}
+
+#marketMain {
+    margin-left: 200px;
+    /* Same as the width of the sidenav */
 }
