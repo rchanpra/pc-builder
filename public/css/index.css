@@ -117,7 +117,7 @@ textarea::placeholder {
 /* The sidenav */
 #mySidenav {
     height: 100%;
-    width: 200px;
+    width: 250px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -142,7 +142,3 @@ textarea::placeholder {
     color: #f1f1f1;
 }
 
-#marketMain {
-    margin-left: 200px;
-    /* Same as the width of the sidenav */
-}
