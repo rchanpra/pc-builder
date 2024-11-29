@@ -1,6 +1,7 @@
 window.onload = function() {
     loadPcPartsIDs();
     document.getElementById("updatePCPartsTable").addEventListener("submit", updatePCPart);
+    document.getElementById("pcPartsDeleteform").addEventListener("submit", deletePcPart);
 };
 
 
@@ -58,6 +59,30 @@ async function updatePCPart(event) {
     if (responseData.success) {
         messageElement.textContent = "Data updated successfully!";
         loadPcPartsIDs();
+    } else {
+        messageElement.textContent = responseData.message;
+    }
+}
+
+async function deletePcPart(event) {
+    event.preventDefault();
+    partID = document.getElementById('deletePartID').value;
+
+    const response = await fetch('/DeletePCParts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            PartID: partID
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('deletePcPartMessage');
+    if (responseData.success) {
+        loadPcPartsIDs();
+        messageElement.textContent = "Part deleted successfully!";
     } else {
         messageElement.textContent = responseData.message;
     }
