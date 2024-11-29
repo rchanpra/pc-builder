@@ -291,14 +291,16 @@ async function GROUPBY() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
-            SELECT AVG(Rating), ManufacturerID 
-            FROM PCParts 
-            GROUP BY ManufacturerID
+            SELECT x.ManufacturerID, x.Name, AVG(x.Rating)
+            FROM (SELECT p.Rating, p.ManufacturerID, m.Name
+                    FROM PcParts p 
+                    JOIN Manufacturer m ON p.ManufacturerID=m.ManufacturerID) x
+            GROUP BY x.ManufacturerID, x.Name
             `
         );
         return result.rows;
     }).catch(() => {
-        return false;
+        return [];
     });
 }
 

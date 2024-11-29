@@ -191,19 +191,10 @@ router.post('/join', async (req, res) => {
 });
 
 // 2.1.7 Aggregation with GROUP BY
-router.post('/group-by', async (req, res) => {
-    console.log("POST - GROUPBY");
-    // 2.2.2 Sanitization
-    if (!Sanitization(req)) {
-        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
-    }
-
-    const result = await appService.GROUPBY();
-    if (result) {
-        res.json(result);
-    } else {
-        res.status(500).json({ success: false });
-    }
+router.get('/groupby', async (req, res) => {
+    console.log("GET - GROUPBY");
+    const tableContent = await appService.GROUPBY();
+    res.json({data: tableContent});
 });
 
 // 2.1.8 Aggregation with HAVING
