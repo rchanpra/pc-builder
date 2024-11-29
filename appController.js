@@ -231,8 +231,8 @@ router.post('/nested-group-by', async (req, res) => {
 });
 
 // 2.1.10 Division
-router.post('/division', async (req, res) => {
-    console.log("POST - DIVISION");
+router.get('/division', async (req, res) => {
+    console.log("GET - DIVISION");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });

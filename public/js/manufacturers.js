@@ -36,7 +36,6 @@ async function loadAVGManufacturer(event) {
     const response = await fetch('/groupby', {
         method: 'GET'
     });
-    console.log("GET - GROUPBY");
 
     const responseData = await response.json();
     const tableContent = responseData.data;

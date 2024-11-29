@@ -338,7 +338,7 @@ async function NESTEDGROUPBY() {
                     GROUP BY ManufacturerID, ThreadCount) 
             GROUP BY ThreadCount
         `);
-        return result; // stub
+        return result.rows;
     }).catch(() => {
         return false;
     });
@@ -352,10 +352,10 @@ async function DIVISION() {
             SELECT * FROM PCParts p
             WHERE NOT EXISTS (
                 (SELECT r.RetailerID FROM Retailer r)
-                EXCEPT
-                (SELECT s.RetailerID FROM Sell s WHERE p.PartID = s.PartID)
+                MINUS
+                (SELECT s.RetailerID FROM Sell s WHERE p.PartID = s.PartID))
         `);
-        return result; // stub
+        return result.rows;
     }).catch(() => {
         return false;
     });
