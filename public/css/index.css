@@ -2,7 +2,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     padding: 40px;
-    max-width: 800px;
+    max-width: 1000px;
     margin: auto;
     line-height: 1.6;
     background-color: #fffef5f9;
@@ -83,4 +83,31 @@ input::placeholder, textarea::placeholder {
 .loading-gif {
     height: 1em;
     vertical-align: middle;
+}
+
+#sellBody {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    padding: 40px;
+    max-width: 1250px;
+    margin: auto;
+    line-height: 1.6;
+    background-color: #fffef5f9;
+    color: #313131;
+}
+
+#SellTable {
+    width: 1%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 0px auto;
+}
+
+#root {
+    text-align: center;
+}
+
+#main-nav {
+    text-align: center;
 }
