@@ -283,6 +283,12 @@ router.get('/SelectBenchmarkTest', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/SelectSell', async (req, res) => {
+    console.log("GET - SelectSell");
+    const tableContent = await appService.SelectSell();
+    res.json({data: tableContent});
+});
+
 router.post('/SelectPCPartsFromPCPartsList', async (req, res) => {
     console.log("POST - SelectPCPartsFromPCPartsList");
     // 2.2.2 Sanitization
