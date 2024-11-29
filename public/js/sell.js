@@ -1,7 +1,7 @@
 window.onload = function() {
     loadSell();
     document.getElementById("addFilter").addEventListener("click", addNewFilterForm);
-    document.getElementById("submitFilterSearch").addEventListener("submit", runFilter);
+    document.getElementById("filterSearch").addEventListener("submit", runFilter);
 };
 
 async function addNewFilterForm(event) {
@@ -28,43 +28,48 @@ async function runFilter(event) {
     const tableElement = document.getElementById('SellTable');
     const tableBody = tableElement.querySelector('tbody');
 
-    let filterString = '';
+    let filterArray = [];
+    let filterString = "";
 
     console.log("asdasd");
     
-    // document.getElementById("filterSection").querySelectorAll().forEach((child) => {
-    //     console.log(child);
-    // })
+    document.getElementById("filterSection").querySelectorAll('div[name="innerFilterSection"]').forEach((child) => {
+        let whereFilter = child.querySelector('select[name="whereFilter"]').value;
+        let comparisonFilter = child.querySelector('select[name="comparisonFilter"]').value;
+        let searchBar = child.querySelector('input[name="searchBar"]').value;
+        let logicalFilter = child.querySelector('select[name="logicalFilter"]').value;
+        filterArray.push(whereFilter, comparisonFilter, searchBar, logicalFilter);
+    });
+    filterArray.pop
+    filterArray.forEach((string) => {
+        filterString += string + " ";
+    });
+    filterString = filterString.substring(0, filterString.length - 1);
 
+    const response = await fetch('/selection', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            string: filterString
+        })
+    });
 
-    // const response = await fetch('/update', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         PartID: idValue,
-    //         Name: nameValue,
-    //         Model: modelValue,
-    //         Rating: ratingValue,
-    //         ManufacturerID: manufacturerValue
-    //     })
-    // });
+    const responseData = await response.json();
+    const tableContent = responseData.data;
 
-    // const responseData = await response.json();
-    // const tableContent = responseData.data;
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
 
-    // if (tableBody) {
-    //     tableBody.innerHTML = '';
-    // }
-
-    // tableContent.forEach(part => {
-    //     const row = tableBody.insertRow();
-    //     part.forEach((field, index) => {
-    //         const cell = row.insertCell(index);
-    //         cell.textContent = field;
-    //     });
-    // });
+    tableContent.forEach(part => {
+        const row = tableBody.insertRow();
+        part.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
 }
 
 async function loadSell() {
