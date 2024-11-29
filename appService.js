@@ -426,6 +426,7 @@ async function SelectSell() {
     });
 }
 
+//2.1.6 JOIN
 async function SelectPCPartsFromPCPartsList(ListID) {
     console.log("SelectPCPartsFromPCPartsList");
     return await withOracleDB(async (connection) => {
