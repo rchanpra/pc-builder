@@ -303,10 +303,23 @@ router.post('/SelectPCPartsFromPCPartsList', async (req, res) => {
     } else {
         res.status(500).json({ success: false , message: "Not a real list ID, please enter a valid one"});
     }
-
-    
 });
 
+router.post('/DeletePCParts', async (req, res) => {
+    console.log("POST - DeletePCParts");
+    // 2.2.2 Sanitization
+    if (!Sanitization(req)) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const { PartID } = req.body;
+    const result = await appService.DeletePCParts(PartID);
+    if (result) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
 
 // ----------------------------------------------------------
 module.exports = router;

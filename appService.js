@@ -425,10 +425,27 @@ async function SelectPCPartsFromPCPartsList(ListID) {
     });
 }
 
+async function DeletePCParts(PartID) {
+    console.log("DeletePCParts");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE
+            FROM PCParts
+            WHERE PartID =:PartID`,
+            [PartID],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 
 // ----------------------------------------------------------
 module.exports = {
     testOracleConnection,
+    //
     INSERT,
     UPDATE,
     DELETE,
@@ -439,11 +456,13 @@ module.exports = {
     HAVING,
     NESTEDGROUPBY,
     DIVISION,
+    //
     SelectPCParts,
     SelectManufacturer,
     SelectRetailer,
     SelectPCPartsList,
     SelectBenchmarkTest,
     SelectSell,
-    SelectPCPartsFromPCPartsList
+    SelectPCPartsFromPCPartsList,
+    DeletePCParts
 };
