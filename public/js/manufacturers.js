@@ -1,6 +1,7 @@
 window.onload = function() {
     loadManufacturer();
     document.getElementById("avgManufacturerIDForm").addEventListener("submit", loadAVGManufacturer);
+    document.getElementById("minManufacturerIDForm").addEventListener("submit", loadMINManufacturer);
 };
 
 async function loadManufacturer() {
@@ -50,4 +51,43 @@ async function loadAVGManufacturer(event) {
             cell.textContent = field;
         });
     });
+}
+
+async function loadMINManufacturer(event) {
+    event.preventDefault();
+    const tableElement = document.getElementById('minManufacturer');
+    const tableBody = tableElement.querySelector('tbody');
+
+    cRating = document.getElementById('insertMINId').value;
+
+    const response = await fetch('/having', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Rating: cRating
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('loadManufacturerResultMsg');
+    if (responseData.success) {
+        const tableContent = responseData.data;
+        console.log(tableContent);
+        messageElement.textContent = "Listed loaded successfully!";
+        if (tableBody) {
+            tableBody.innerHTML = '';
+        }
+    
+        tableContent.forEach(part => {
+            const row = tableBody.insertRow();
+            part.forEach((field, index) => {
+                const cell = row.insertCell(index);
+                cell.textContent = field;
+            });
+        });
+    } else {
+        messageElement.textContent = responseData.message;
+    }
 }

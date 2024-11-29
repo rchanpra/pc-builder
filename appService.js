@@ -266,24 +266,24 @@ async function PROJECTION(attributes, tablename) {
 }
 
 // 2.1.6 Join
-async function JOIN(rating) {
-    console.log("Join");
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `
-            SELECT parentpart.name, childpart.name
-            FROM Compatibility 
-            JOIN PCParts AS parentpart ON Compatibility.ParentPartID = parentpart.PartID
-            JOIN PCParts AS childpart ON Compatibility.ChildPartID = childpart.PartID
-            WHERE parentpart.Rating > :rating AND childpart.Rating > :rating
-            `,
-            [rating]
-        );
-        return result; // stub
-    }).catch(() => {
-        return false;
-    });
-}
+// async function JOIN(rating) {
+//     console.log("Join");
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute(
+//             `
+//             SELECT parentpart.name, childpart.name
+//             FROM Compatibility 
+//             JOIN PCParts AS parentpart ON Compatibility.ParentPartID = parentpart.PartID
+//             JOIN PCParts AS childpart ON Compatibility.ChildPartID = childpart.PartID
+//             WHERE parentpart.Rating > :rating AND childpart.Rating > :rating
+//             `,
+//             [rating]
+//         );
+//         return result; // stub
+//     }).catch(() => {
+//         return false;
+//     });
+// }
 
 // 2.1.7 Aggregation with GROUP BY
 async function GROUPBY() {
@@ -310,10 +310,12 @@ async function HAVING(rating) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
-            SELECT COUNT(PartID), MIN(Rating), ManufacturerID 
-            FROM PCParts 
-            GROUP BY ManufacturerID
-            HAVING MIN(Rating) > :rating
+            SELECT ManufacturerID, Name, COUNT(PartID), MIN(Rating)
+            FROM (SELECT p.PartID, p.Rating, p.ManufacturerID, m.Name
+                    FROM PcParts p 
+                    JOIN Manufacturer m ON p.ManufacturerID=m.ManufacturerID)
+            GROUP BY ManufacturerID, Name
+            HAVING MIN(Rating) >= :rating
             `,
             [rating]
         );
@@ -479,7 +481,7 @@ module.exports = {
     DELETE,
     SELECTION,
     PROJECTION,
-    JOIN,
+    // JOIN,
     GROUPBY,
     HAVING,
     NESTEDGROUPBY,
