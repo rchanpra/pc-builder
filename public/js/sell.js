@@ -30,8 +30,6 @@ async function runFilter(event) {
 
     let filterArray = [];
     let filterString = "";
-
-    console.log("asdasd");
     
     document.getElementById("filterSection").querySelectorAll('div[name="innerFilterSection"]').forEach((child) => {
         let whereFilter = child.querySelector('select[name="whereFilter"]').value;
@@ -40,7 +38,7 @@ async function runFilter(event) {
         let logicalFilter = child.querySelector('select[name="logicalFilter"]').value;
         filterArray.push(whereFilter, comparisonFilter, searchBar, logicalFilter);
     });
-    filterArray.pop
+    filterArray.pop();
     filterArray.forEach((string) => {
         filterString += string + " ";
     });

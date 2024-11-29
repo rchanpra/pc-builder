@@ -235,16 +235,15 @@ async function DELETE(ListID, PartID) {
 async function SELECTION(string) {
     console.log("Selection");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `SELECT *
-            FROM PCParts
-            WHERE :string`,
-            [Name, Model],
-            { autoCommit: true }
-        );
+        const SQL = `SELECT p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID, s.Price, s.DatePriced, r.RetailerID, r.Name, r.Website
+            FROM Sell s
+            JOIN Retailer r ON r.RetailerID=s.RetailerID
+            JOIN PCParts p ON p.PartID=s.PartID
+            WHERE ${string}`
+        const result = await connection.execute(SQL, {});
         return result.rows;
     }).catch(() => {
-        return false;
+        return [];
     });
 }
 
@@ -252,16 +251,14 @@ async function SELECTION(string) {
 async function PROJECTION(attributes) {
     console.log("Projection");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `
-            SELECT :attributes
+        const SQL = `
+            SELECT ${attributes}'
             FROM Retailer
-            `,
-            [attributes]
-        );
+            `
+        const result = await connection.execute(SQL, {});
         return result.rows;
     }).catch(() => {
-        return false;
+        return [];
     });
 }
 

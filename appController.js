@@ -143,7 +143,16 @@ router.post('/delete', async (req, res) => {
 router.post('/selection', async (req, res) => {
     console.log("POST - SELECTION");
     // 2.2.2 Sanitization
-    if (!Sanitization(req)) {
+    let sani = true;
+    let forbidden = ["SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "ALL", "--", "#", "/*", "*/", "*", "%"];
+    const ParsedString = JSON.stringify(req.body).toUpperCase();
+    for (const word of forbidden) {
+        if (ParsedString.includes(word)){
+            console.log(`SANITIZATION FAILED: ` + word);
+            sani = false;
+        }
+    }
+    if (!sani) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
 
