@@ -24,18 +24,61 @@
 
 <body id="sellBody">
 
-    <div id="mySidenav" class="sidenav">
-        <div>MANUFACTURER</div>
-        <div>RATING</div>
-        <div>PRICE</div>
-        <div>NAME</div>
-        <div>PC PART TYPE</div>
-    </div>
+    <!-- <div id="mySidenav" class="sidenav">
+        
+        <form action="/action_page.php">
+            <div>MANUFACTURER</div>
+            Star <input type="checkbox" placeholder="asdsd" id="vehicle1" name="vehicle1" value="Bike">
+            <label for="vehicle1"> I have a bike</label><br>
+            <div>RATING</div>
+            1 <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+            <div>PRICE</div>
+            100 <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">  
+            <div>NAME</div>
+            100 <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">  
+            <div>PC PART TYPE</div>
+            100 <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">  
+            <input type="submit" value="Submit">
+        </form>
+    </div> -->
 
-    <main id="marketMain">
-        <div>
+    <main>
+        <div id="root">
             <h1>Market Page</h1>
         </div>
+
+        <h2>Add Filters To Search</h2>
+        <div id="filterSection">
+            <form id="filterSearch">
+                <select name="whereFilter">
+                    <option value="partID">Part ID</option>
+                    <option value="partName">Part Name</option>
+                    <option value="model">Model</option>
+                    <option value="rating">Rating</option>
+                    <option value="manufacturer">Manufacturer ID</option>
+                    <option value="price">Price</option>
+                    <option value="date">Date</option>
+                    <option value="retailerID">Retailer ID</option>
+                    <option value="retailerName">Retailer Name</option>
+                </select>
+                <select name="comparisonFilter">
+                    <option value="=">=</option>
+                    <option value="<">&lt;</option>
+                    <option value=">">&gt;</option>
+                    <option value="Contains">Contains</option>
+                </select>
+                <input type="text" style="width:500px" id="searchBar" name="searchBar" placeholder="Input Filter Value (Text or Number)" required>
+                <select name="logicalFilter">
+                    <option value="and">And</option>
+                    <option value="or">Or</option>
+                </select>
+                <button type="button" name="removeFilter" title="Remove Filter">X</button>
+            </form>
+        </div>
+        <button type="button" id="addFilter">Add another filter</button>
+        <button type="submit" id="submitFilterSearch">Search</button>
+        </form>
+        <div id="filterMessage"></div>
 
         <h2>Market</h2>
         <table id="SellTable" border="1">
@@ -57,8 +100,6 @@
             </tbody>
         </table>
     </main>
-    <br>
-    <hr><br> <!-- ========================================================================= -->
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
