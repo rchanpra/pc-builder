@@ -28,41 +28,43 @@ async function runFilter(event) {
     const tableElement = document.getElementById('SellTable');
     const tableBody = tableElement.querySelector('tbody');
 
-    let filterList = []
+    let filterString = '';
+
+    console.log("asdasd");
     
-    document.getElementById("filterSection").querySelectorAll().forEach((child) => {
+    // document.getElementById("filterSection").querySelectorAll().forEach((child) => {
+    //     console.log(child);
+    // })
 
-    })
 
+    // const response = await fetch('/update', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         PartID: idValue,
+    //         Name: nameValue,
+    //         Model: modelValue,
+    //         Rating: ratingValue,
+    //         ManufacturerID: manufacturerValue
+    //     })
+    // });
 
-    const response = await fetch('/update', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            PartID: idValue,
-            Name: nameValue,
-            Model: modelValue,
-            Rating: ratingValue,
-            ManufacturerID: manufacturerValue
-        })
-    });
+    // const responseData = await response.json();
+    // const tableContent = responseData.data;
 
-    const responseData = await response.json();
-    const tableContent = responseData.data;
+    // if (tableBody) {
+    //     tableBody.innerHTML = '';
+    // }
 
-    if (tableBody) {
-        tableBody.innerHTML = '';
-    }
-
-    tableContent.forEach(part => {
-        const row = tableBody.insertRow();
-        part.forEach((field, index) => {
-            const cell = row.insertCell(index);
-            cell.textContent = field;
-        });
-    });
+    // tableContent.forEach(part => {
+    //     const row = tableBody.insertRow();
+    //     part.forEach((field, index) => {
+    //         const cell = row.insertCell(index);
+    //         cell.textContent = field;
+    //     });
+    // });
 }
 
 async function loadSell() {

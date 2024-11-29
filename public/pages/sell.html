@@ -48,35 +48,37 @@
         </div>
 
         <h2>Add Filters To Search</h2>
-        <div id="filterSection">
-            <form id="filterSearch">
-                <select name="whereFilter">
-                    <option value="partID">Part ID</option>
-                    <option value="partName">Part Name</option>
-                    <option value="model">Model</option>
-                    <option value="rating">Rating</option>
-                    <option value="manufacturer">Manufacturer ID</option>
-                    <option value="price">Price</option>
-                    <option value="date">Date</option>
-                    <option value="retailerID">Retailer ID</option>
-                    <option value="retailerName">Retailer Name</option>
-                </select>
-                <select name="comparisonFilter">
-                    <option value="=">=</option>
-                    <option value="<">&lt;</option>
-                    <option value=">">&gt;</option>
-                    <option value="Contains">Contains</option>
-                </select>
-                <input type="text" style="width:500px" id="searchBar" name="searchBar" placeholder="Input Filter Value (Text or Number)" required>
-                <select name="logicalFilter">
-                    <option value="and">And</option>
-                    <option value="or">Or</option>
-                </select>
-                <button type="button" name="removeFilter" title="Remove Filter">X</button>
-            </form>
-        </div>
-        <button type="button" id="addFilter">Add another filter</button>
-        <button type="submit" id="submitFilterSearch">Search</button>
+        <form id="filterSearch">
+            <div id="filterSection">
+                <div>
+                    <select name="whereFilter">
+                        <option value="partID">Part ID</option>
+                        <option value="partName">Part Name</option>
+                        <option value="model">Model</option>
+                        <option value="rating">Rating</option>
+                        <option value="manufacturer">Manufacturer ID</option>
+                        <option value="price">Price</option>
+                        <option value="date">Date</option>
+                        <option value="retailerID">Retailer ID</option>
+                        <option value="retailerName">Retailer Name</option>
+                    </select>
+                    <select name="comparisonFilter">
+                        <option value="=">=</option>
+                        <option value="<">&lt;</option>
+                        <option value=">">&gt;</option>
+                    </select>
+                    <input type="text" style="width:500px" id="searchBar" name="searchBar"
+                        placeholder="Input Filter Value (Text or Number)" required>
+                    <select name="logicalFilter">
+                        <option value="and">And</option>
+                        <option value="or">Or</option>
+                    </select>
+                    <button type="button" name="removeFilter" title="Remove Filter">X</button>
+                </div>
+            </div>
+            <button type="button" id="addFilter">Add another filter</button>
+            <button type="submit" id="submitFilterSearch">Search</button>
+        </form>
         </form>
         <div id="filterMessage"></div>
 
