@@ -330,13 +330,9 @@ async function NESTEDGROUPBY() {
     console.log("Nested aggregation with GROUP BY");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`
-            SELECT MAX(AvgRating) AS MaxRating, ThreadCount 
-            FROM (SELECT AVG(Rating) AS AvgRating, ManufacturerID, ThreadCount
-                    FROM (SELECT *
-                            FROM CPU c
-                            LEFT JOIN PCParts p ON c.PartID = p.PartID
-                    GROUP BY ManufacturerID, ThreadCount) 
-            GROUP BY ThreadCount
+            SELECT *
+            FROM PCParts pe
+            WHERE pe.Rating > ALL(SELECT AVG(p.Rating) FROM PCParts p GROUP BY ManufacturerID)
         `);
         return result.rows;
     }).catch(() => {

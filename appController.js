@@ -215,8 +215,8 @@ router.post('/having', async (req, res) => {
 });
 
 // 2.1.9 Nested aggregation with GROUP BY
-router.post('/nested-group-by', async (req, res) => {
-    console.log("POST - NESTEDGROUPBY");
+router.get('/nestedgroupby', async (req, res) => {
+    console.log("GET - NESTEDGROUPBY");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });

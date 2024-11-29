@@ -2,6 +2,7 @@ window.onload = function() {
     loadManufacturer();
     document.getElementById("avgManufacturerIDForm").addEventListener("submit", loadAVGManufacturer);
     document.getElementById("minManufacturerIDForm").addEventListener("submit", loadMINManufacturer);
+    document.getElementById("ratingManufacturerIDForm").addEventListener("submit", ratingManufacturer);
 };
 
 async function loadManufacturer() {
@@ -89,4 +90,29 @@ async function loadMINManufacturer(event) {
     } else {
         messageElement.textContent = responseData.message;
     }
+}
+
+
+async function ratingManufacturer(event) {
+    event.preventDefault();
+    const tableElement = document.getElementById('ratingManufacturer');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const response = await fetch('/nestedgroupby', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableContent = responseData;
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(part => {
+        const row = tableBody.insertRow();
+        part.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
 }
