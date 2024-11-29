@@ -140,17 +140,17 @@ router.post('/delete', async (req, res) => {
 });
 
 // 2.1.4 Selection
-router.get('/selection', async (req, res) => {
+router.post('/selection', async (req, res) => {
     console.log("POST - SELECTION");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
 
-    const {name, model} = req.body;
-    const result = await appService.SELECTION(name, model);
+    const {string} = req.body;
+    const result = await appService.SELECTION(string);
     if (result) {
-        res.json(result);
+        res.json({ success: true, data: result});
     } else {
         res.status(500).json({ success: false });
     }
@@ -164,10 +164,10 @@ router.post('/projection', async (req, res) => {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
     }
 
-    const {attributes, tablename} = req.body;
-    const result = await appService.PROJECTION(attributes, tablename);
+    const {attributes} = req.body;
+    const result = await appService.PROJECTION(attributes);
     if (result) {
-        res.json(result);
+        res.json({ success: true, data: result});
     } else {
         res.status(500).json({ success: false });
     }
