@@ -232,13 +232,13 @@ async function DELETE(ListID, PartID) {
 
 // 2.1.4 Selection
 // select pcparts with name and model
-async function SELECTION(Name, Model) {
+async function SELECTION(string) {
     console.log("Selection");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `SELECT *
             FROM PCParts
-            WHERE Name=:Name AND Model = :Model`,
+            WHERE :string`,
             [Name, Model],
             { autoCommit: true }
         );
@@ -249,17 +249,17 @@ async function SELECTION(Name, Model) {
 }
 
 // 2.1.5 Projection
-async function PROJECTION(attributes, tablename) {
+async function PROJECTION(attributes) {
     console.log("Projection");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
             SELECT :attributes
-            FROM :tablename
+            FROM Retailer
             `,
-            [attributes, tablename]
+            [attributes]
         );
-        return result; // stub
+        return result.rows;
     }).catch(() => {
         return false;
     });
