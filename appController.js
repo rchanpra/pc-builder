@@ -174,36 +174,27 @@ router.post('/projection', async (req, res) => {
 });
 
 // 2.1.6 Join
-router.post('/join', async (req, res) => {
-    console.log("POST - JOIN");
-    // 2.2.2 Sanitization
-    if (!Sanitization(req)) {
-        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
-    }
+// router.post('/join', async (req, res) => {
+//     console.log("POST - JOIN");
+//     // 2.2.2 Sanitization
+//     if (!Sanitization(req)) {
+//         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+//     }
 
-    const {Rating} = req.body;
-    const result = await appService.JOIN(Rating);
-    if (result) {
-        res.json(result);
-    } else {
-        res.status(500).json({ success: false });
-    }
-});
+//     const {Rating} = req.body;
+//     const result = await appService.JOIN(Rating);
+//     if (result) {
+//         res.json(result);
+//     } else {
+//         res.status(500).json({ success: false });
+//     }
+// });
 
 // 2.1.7 Aggregation with GROUP BY
-router.post('/group-by', async (req, res) => {
-    console.log("POST - GROUPBY");
-    // 2.2.2 Sanitization
-    if (!Sanitization(req)) {
-        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
-    }
-
-    const result = await appService.GROUPBY();
-    if (result) {
-        res.json(result);
-    } else {
-        res.status(500).json({ success: false });
-    }
+router.get('/groupby', async (req, res) => {
+    console.log("GET - GROUPBY");
+    const tableContent = await appService.GROUPBY();
+    res.json({data: tableContent});
 });
 
 // 2.1.8 Aggregation with HAVING
@@ -217,15 +208,15 @@ router.post('/having', async (req, res) => {
     const {Rating} = req.body;
     const result = await appService.HAVING(Rating);
     if (result) {
-        res.json(result);
+        res.json({ success: true, data: result});
     } else {
         res.status(500).json({ success: false });
     }
 });
 
 // 2.1.9 Nested aggregation with GROUP BY
-router.post('/nested-group-by', async (req, res) => {
-    console.log("POST - NESTEDGROUPBY");
+router.get('/nestedgroupby', async (req, res) => {
+    console.log("GET - NESTEDGROUPBY");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
@@ -240,8 +231,8 @@ router.post('/nested-group-by', async (req, res) => {
 });
 
 // 2.1.10 Division
-router.post('/division', async (req, res) => {
-    console.log("POST - DIVISION");
+router.get('/division', async (req, res) => {
+    console.log("GET - DIVISION");
     // 2.2.2 Sanitization
     if (!Sanitization(req)) {
         return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });

@@ -388,6 +388,14 @@ insert into Compatibility (ParentPartID, ChildPartID) values
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
 (1, 1, 100, 699, '2023-10-01');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(2, 1, 100, 699, '2023-10-01');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(3, 1, 100, 699, '2023-10-01');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(4, 1, 100, 699, '2023-10-01');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(5, 1, 100, 699, '2023-10-01');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
 (2, 2, 50, 299, '2023-10-02');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
 (3, 3, 75, 49, '2023-10-03');
