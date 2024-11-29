@@ -9,19 +9,42 @@
     <link rel="stylesheet" href="../css/index.css">
 </head>
 
+<nav id="main-nav" class="topnav">
+    <a href="/">Home</a>
+    <a href="builder.html">List Builder</a>
+    <a href="products.html">PC Parts</a>
+    <a href="guides.html">Guides</a>
+    <a href="builds.html">Complete Builds</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="retailers.html">Retailers</a>
+    <a href="manufacturer.html">Manufacturers</a>
+</nav>
+
 <body>
     <div id="root">
-        <nav id="main-nav" class="topnav">
-            <a href="/">Home</a>
-            <a href="builder.html">List Builder</a>
-            <a href="products.html">PC Parts</a>
-            <a href="guides.html">Guides</a>
-            <a href="builds.html">Complete Builds</a>
-            <a href="benchmarks.html">Benchmarks</a>
-            <a href="retailers.html">Retailers</a>
-            <a href="manufacturer.html">Manufacturers</a>
-        </nav>
         <h1>Benchmarks Page</h1>
     </div>
+
+    <h2>List of Benchmarks</h2>
+    <table id="BenchmarkTable" border="1">
+        <thead>
+            <tr>
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>TestID</th>
+                <th>TestName</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <br>
+    <hr><br> <!-- ========================================================================= -->
+
+    <!-- ===================================================================================== -->
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="../js/benchmarks.js"></script>
+
 </body>
 </html>

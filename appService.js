@@ -373,10 +373,21 @@ async function SelectRetailer() {
         return [];
     });
 }
+
 async function SelectPCPartsList() {
     console.log("SelectPCPartsList");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM PCPartsList');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectBenchmarkTest() {
+    console.log("SelectBenchmarkTest");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM BenchmarkTest');
         return result.rows;
     }).catch(() => {
         return [];
@@ -418,5 +429,6 @@ module.exports = {
     SelectManufacturer,
     SelectRetailer,
     SelectPCPartsList,
+    SelectBenchmarkTest,
     SelectPCPartsFromPCPartsList
 };
