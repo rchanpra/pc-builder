@@ -244,7 +244,7 @@ insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (3, 'TC Graphics Card', 'RTX-3070', 9, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(4, 'CW Motherboard', 'MB-ATX123', 2, 3);
+(4, 'CW Motherboard', 'MB-ATX123', 5, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (5, 'Katanta Memory Module', 'RAM-16GB-DDR4', 7, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
@@ -254,15 +254,15 @@ insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (8, 'NG Cooler', 'AirCool-X200', 7, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(9, ' Faster Card 123', 'RX-6800', 4, 3);
+(9, ' Faster Card 123', 'RX-6800', 5, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (10, 'TC Motherboard Nitro 5', 'MB-MicroATX100', 7, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(11, 'Memory 45', 'RAM-32GB-DDR5', 10, 3);
+(11, 'Memory 45', 'RAM-32GB-DDR5', 7, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (12, 'TC 451 Drive', 'HDD-2TB', 7, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(13, 'NG Processor c2.3', 'CPU-Ryzen5-7600', 8, 2);
+(13, 'NG Processor c2.3', 'CPU-Ryzen5-7600', 7, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (14, 'Cooler 12', 'LiquidCool-500', 5, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
@@ -274,9 +274,29 @@ insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (18, 'CW Motherboard', 'MB-ATX-Elite', 9, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(19, 'NG Memory Module', 'RAM-8GB-DDR4', 2, 2);
+(19, 'NG Memory Module', 'RAM-8GB-DDR4', 3, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (20, ' CW Storage Drive 417', 'SSD-512GB', 8, 3);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(21, 'TC Gaming Case v1', 'GC-5200', 6, 1);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(22, 'NG PS 4', 'PS-751W', 5, 2);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(23, 'TC Graphics Card', 'RTX-4070', 9, 1);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(24, 'CW Motherboard', 'MB-ATX1234', 5, 3);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(25, 'TC Processor', 'CPU-i5-12620K', 4, 1);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(26, 'NG Cooler', 'AirCool-X221', 8, 2);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(27, ' Faster Card 123', 'RX-6850', 5, 3);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(28, 'TC Motherboard Nitro 5', 'MB-MicroATX123', 7, 1);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(29, 'TC Gaming Case v1', 'GC-5220', 5, 1);
+insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
+(30, 'NG Cooler', 'AirCool-X300', 6, 2);
 
 insert into Case (PartID, Height, Width, Length, FormFactor) values
 (1, 450, 210, 460, 'ATX');
