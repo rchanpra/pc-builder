@@ -1,13 +1,13 @@
 window.onload = function() {
-    loadBenchmark();
-    document.getElementById("projectionForm").addEventListener("submit", projectBenchMarks);
+    loadUserEmail();
+    document.getElementById("projectionForm").addEventListener("submit", projectUsers);
 };
 
-async function loadBenchmark() {
-    const tableElement = document.getElementById('BenchmarkTable');
+async function loadUserEmail() {
+    const tableElement = document.getElementById('UserTable');
     const tableBody = tableElement.querySelector('tbody');
 
-    const response = await fetch('/SelectBenchmarkTest', {
+    const response = await fetch('/SelectUserEmail', {
         method: 'GET'
     });
 
@@ -27,13 +27,13 @@ async function loadBenchmark() {
     });
 }
 
-async function projectBenchMarks(event) {
+async function projectUsers(event) {
     event.preventDefault();
-    let tableElement = document.querySelector('table[name="BenchmarkTable"]');
+    let tableElement = document.querySelector('table[name="UserTable"]');
 
-    let testID = false;
-    let testName = false;
-    let testType = false;
+    let email = false;
+    let username = false;
+    let password = false;
 
     let sendString = ""
 
@@ -43,14 +43,14 @@ async function projectBenchMarks(event) {
         }
     })
     
-    if(sendString.includes("TestID")) {
-        testID = true;
+    if(sendString.includes("Email")) {
+        email = true;
     }
-    if(sendString.includes("TestName")) {
-        testName = true;
+    if(sendString.includes("Username")) {
+        username = true;
     }
-    if(sendString.includes("Type")) {
-        testType = true;
+    if(sendString.includes("Password")) {
+        password = true;
     }
     if(sendString.length != 0) {
         sendString = sendString.slice(0, -1); 
@@ -59,7 +59,7 @@ async function projectBenchMarks(event) {
     }
     console.log(sendString);
     
-    const response = await fetch('/projection', {
+    const response = await fetch('/projection2', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -76,22 +76,22 @@ async function projectBenchMarks(event) {
         messageElement.textContent = "Listed loaded successfully!";
         tableElement.remove();
 
-        let benchmarkDiv = document.getElementById("benchMarkTableDiv");
+        let userDiv = document.getElementById("UserTableDiv");
         tableElement = document.createElement("table");
-        tableElement.setAttribute('name', "BenchmarkTable");
+        tableElement.setAttribute('name', "UserTable");
         let header = tableElement.insertRow();
         let cell;
-        if(testID) {
+        if(email) {
             cell = header.insertCell()
-            cell.textContent = "TestID";
+            cell.textContent = "Email";
         }
-        if(testName) {
+        if(username) {
             cell = header.insertCell()
-            cell.textContent = "TestName";
+            cell.textContent = "Username";
         }
-        if(testType) {
+        if(password) {
             cell = header.insertCell()
-            cell.textContent = "Type";
+            cell.textContent = "Password";
         } 
         tableContent.forEach(part => {
             const row = tableElement.insertRow();
@@ -100,7 +100,7 @@ async function projectBenchMarks(event) {
                 cell.textContent = field;
             });
         });
-        benchmarkDiv.appendChild(tableElement);
+        userDiv.appendChild(tableElement);
     } else {
         messageElement.textContent = responseData.message;
     }

@@ -182,6 +182,31 @@ router.post('/projection', async (req, res) => {
     }
 });
 
+router.post('/projection2', async (req, res) => {
+    console.log("POST - PROJECTION2");
+    // 2.2.2 Sanitization
+    let sani = true;
+    let forbidden = ["SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "ALL", "AND", "--", "#", "/*", "*/", "*", "%"];
+    const ParsedString = JSON.stringify(req.body).toUpperCase();
+    for (const word of forbidden) {
+        if (ParsedString.includes(word)){
+            console.log(`SANITIZATION FAILED: ` + word);
+            sani = false;
+        }
+    }
+    if (!sani) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const {attributes} = req.body;
+    const result = await appService.PROJECTION2(attributes);
+    if (result) {
+        res.json({ success: true, data: result});
+    } else {
+        res.status(500).json({ success: false, message: "Failed to select columns, please try again" });
+    }
+})
+
 // 2.1.6 Join
 // router.post('/join', async (req, res) => {
 //     console.log("POST - JOIN");
@@ -284,6 +309,12 @@ router.get('/SelectPCPartsList', async (req, res) => {
 router.get('/SelectBenchmarkTest', async (req, res) => {
     console.log("GET - SelectBenchmarkTest");
     const tableContent = await appService.SelectBenchmarkTest();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectUserEmail', async (req, res) => {
+    console.log("GET - SelectUserEmail");
+    const tableContent = await appService.SelectUserEmail();
     res.json({data: tableContent});
 });
 
