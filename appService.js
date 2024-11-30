@@ -550,7 +550,6 @@ async function DeletePCParts(PartID) {
     });
 }
 
-
 async function Register(Email, Username, Password) {
     console.log("Register");
     return await withOracleDB(async (connection) => {
@@ -574,7 +573,6 @@ async function Register(Email, Username, Password) {
     });
 }
 
-
 async function Login(Email, Password) {
     console.log("Login");
     return await withOracleDB(async (connection) => {
@@ -585,6 +583,112 @@ async function Login(Email, Password) {
         return result.rows.length > 0;
     }).catch(() => {
         return false;
+    });
+}
+
+
+// ----------------------------------------------------------
+async function SelectCase() {
+    console.log("SelectCase");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, c.Height, c.Width, c.Length, c.FormFactor, p.ManufacturerID
+            From PCParts p
+            JOIN Case c ON p.PartID=c.PartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectGPU() {
+    console.log("SelectGPU");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, c.Memory, c.CoreClock, p.ManufacturerID
+            From PCParts p
+            JOIN GPU c ON p.PartID=c.PartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectRam() {
+    console.log("SelectRam");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, c.DDRType, c.Speed, p.ManufacturerID
+            From PCParts p
+            JOIN Ram c ON p.PartID=c.PartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectCPU() {
+    console.log("SelectCPU");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, c.ThreadCount, c.CoreCount, c.CoreClock, p.ManufacturerID
+            From PCParts p
+            JOIN CPU c ON p.PartID=c.PartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectCooler() {
+    console.log("SelectCooler");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, c.Type, c.Height, p.ManufacturerID
+            From PCParts p
+            JOIN Cooler c ON p.PartID=c.PartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectPSU() {
+    console.log("SelectPSU");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, c.Wattage, c.EfficiencyRating, p.ManufacturerID
+            From PCParts p
+            JOIN PSU c ON p.PartID=c.PartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectStorage() {
+    console.log("SelectStorage");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, c.Type, c.Capacity, p.ManufacturerID
+            From PCParts p
+            JOIN Storage c ON p.PartID=c.PartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectMotherboard() {
+    console.log("SelectMotherboard");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, c.FormFactor, c.SocketType, p.ManufacturerID
+            From PCParts p
+            JOIN Motherboard c ON p.PartID=c.PartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
     });
 }
 
@@ -620,5 +724,14 @@ module.exports = {
     SelectPCPartsFromPCPartsList,
     DeletePCParts,
     Register,
-    Login
+    Login,
+    //
+    SelectCase,
+    SelectGPU,
+    SelectRam,
+    SelectCPU,
+    SelectCooler,
+    SelectPSU,
+    SelectStorage,
+    SelectMotherboard
 };

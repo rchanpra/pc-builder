@@ -459,5 +459,56 @@ router.post("/login", async (req, res) => {
     }
 });
 
+
+// ----------------------------------------------------------
+router.get('/SelectCase', async (req, res) => {
+    console.log("GET - SelectCase");
+    const tableContent = await appService.SelectCase();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectGPU', async (req, res) => {
+    console.log("GET - SelectGPU");
+    const tableContent = await appService.SelectGPU();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectRam', async (req, res) => {
+    console.log("GET - SelectRam");
+    const tableContent = await appService.SelectRam();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectCPU', async (req, res) => {
+    console.log("GET - SelectCPU");
+    const tableContent = await appService.SelectCPU();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectCooler', async (req, res) => {
+    console.log("GET - SelectCooler");
+    const tableContent = await appService.SelectCooler();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectPSU', async (req, res) => {
+    console.log("GET - SelectPSU");
+    const tableContent = await appService.SelectPSU();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectStorage', async (req, res) => {
+    console.log("GET - SelectStorage");
+    const tableContent = await appService.SelectStorage();
+    res.json({data: tableContent});
+});
+
+router.get('/SelectMotherboard', async (req, res) => {
+    console.log("GET - SelectMotherboard");
+    const tableContent = await appService.SelectMotherboard();
+    res.json({data: tableContent});
+});
+
+
 // ----------------------------------------------------------
 module.exports = router;
