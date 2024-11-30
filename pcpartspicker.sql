@@ -225,6 +225,10 @@ insert into Manufacturer (ManufacturerID, Name, Website, Contact) values
 (2, 'NextGen', 'www.nextgen.com', 'info@nextgen.com');
 insert into Manufacturer (ManufacturerID, Name, Website, Contact) values
 (3, 'CyberWorks', 'www.cyberworks.com', 'support@cyberworks.com');
+insert into Manufacturer (ManufacturerID, Name, Website, Contact) values
+(4, 'NVIDIA', 'www.nvidia.com', 'info@nvidia.com');
+insert into Manufacturer (ManufacturerID, Name, Website, Contact) values
+(5, 'INTEL', 'www.intel.com', 'support@intel.com');
 
 insert into Retailer (RetailerID, Name, Website) values
 (1, 'Amazon', 'www.amazon.com');
@@ -242,19 +246,19 @@ insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (2, 'NG PS 4', 'PS-750W', 5, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(3, 'TC Graphics Card', 'RTX-3070', 9, 1);
+(3, 'TC Graphics Card', 'RTX-3070', 9, 4);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(4, 'CW Motherboard', 'MB-ATX123', 5, 3);
+(4, 'CW Motherboard', 'MB-ATX123', 6, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (5, 'Katanta Memory Module', 'RAM-16GB-DDR4', 7, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (6, 'CW Storage Drive', 'SSD-1TB', 9, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(7, 'TC Processor', 'CPU-i5-12600K', 5, 1);
+(7, 'TC Processor', 'CPU-i5-12600K', 5, 5);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (8, 'NG Cooler', 'AirCool-X200', 7, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(9, ' Faster Card 123', 'RX-6800', 5, 3);
+(9, ' Faster Card 123', 'RX-6800', 6, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (10, 'TC Motherboard Nitro 5', 'MB-MicroATX100', 7, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
@@ -262,15 +266,15 @@ insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (12, 'TC 451 Drive', 'HDD-2TB', 7, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(13, 'NG Processor c2.3', 'CPU-Ryzen5-7600', 7, 2);
+(13, 'NG Processor c2.3', 'CPU-Ryzen5-7600', 7, 5);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(14, 'Cooler 12', 'LiquidCool-500', 5, 3);
+(14, 'Cooler 12', 'LiquidCool-500', 6, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (15, 'Gaming 12', 'Mini-Case-MTX', 6, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (16, 'Power Cooler 67', 'PS-550W', 8, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(17, 'Graphics g4.5', 'RTX-3080', 5, 1);
+(17, 'Graphics g4.5', 'RTX-3080', 5, 4);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (18, 'CW Motherboard', 'MB-ATX-Elite', 9, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
@@ -282,15 +286,15 @@ insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (22, 'NG PS 4', 'PS-751W', 5, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(23, 'TC Graphics Card', 'RTX-4070', 9, 1);
+(23, 'TC Graphics Card', 'RTX-4070', 9, 4);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(24, 'CW Motherboard', 'MB-ATX1234', 5, 3);
+(24, 'CW Motherboard', 'MB-ATX1234', 6, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(25, 'TC Processor', 'CPU-i5-12620K', 4, 1);
+(25, 'TC Processor', 'CPU-i5-12620K', 4, 5);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (26, 'NG Cooler', 'AirCool-X221', 8, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(27, ' Faster Card 123', 'RX-6850', 5, 3);
+(27, ' Faster Card 123', 'RX-6850', 6, 4);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
 (28, 'TC Motherboard Nitro 5', 'MB-MicroATX123', 7, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
@@ -302,6 +306,10 @@ insert into Case (PartID, Height, Width, Length, FormFactor) values
 (1, 450, 210, 460, 'ATX');
 insert into Case (PartID, Height, Width, Length, FormFactor) values
 (15, 400, 200, 450, 'Micro-ATX');
+insert into Case (PartID, Height, Width, Length, FormFactor) values
+(21, 450, 210, 460, 'ATX');
+insert into Case (PartID, Height, Width, Length, FormFactor) values
+(29, 450, 210, 460, 'ATX');
 
 insert into GPU (PartID, Memory, CoreClock) values
 (3, 10, 1440);
@@ -309,6 +317,10 @@ insert into GPU (PartID, Memory, CoreClock) values
 (9, 8, 1600);
 insert into GPU (PartID, Memory, CoreClock) values
 (17, 24, 1800);
+insert into GPU (PartID, Memory, CoreClock) values
+(23, 10, 1440);
+insert into GPU (PartID, Memory, CoreClock) values
+(27, 8, 1600);
 
 insert into Ram (PartID, DDRType, Speed) values
 (5, 'DDR4', 3200);
@@ -321,16 +333,24 @@ insert into CPU (PartID, ThreadCount, CoreCount, CoreClock) values
 (7, 12, 6, 3800);
 insert into CPU (PartID, ThreadCount, CoreCount, CoreClock) values
 (13, 24, 12, 4000);
+insert into CPU (PartID, ThreadCount, CoreCount, CoreClock) values
+(25, 12, 6, 3800);
 
 insert into Cooler (PartID, Type, Height) values
 (8, 'Air', 158);
 insert into Cooler (PartID, Type, Height) values
 (14, 'Liquid', 240);
+insert into Cooler (PartID, Type, Height) values
+(26, 'Air', 158);
+insert into Cooler (PartID, Type, Height) values
+(30, 'Liquid', 240);
 
 insert into PSU (PartID, Wattage, EfficiencyRating) values
 (2, 850, 'Gold');
 insert into PSU (PartID, Wattage, EfficiencyRating) values
 (16, 750, 'Platinum');
+insert into PSU (PartID, Wattage, EfficiencyRating) values
+(22, 850, 'Gold');
 
 insert into Storage (PartID, Type, Capacity) values
 (6, 'SSD', 1024);
@@ -345,6 +365,10 @@ insert into Motherboard (PartID, FormFactor, SocketType) values
 (10, 'Micro-ATX', 'LGA1200');
 insert into Motherboard (PartID, FormFactor, SocketType) values
 (18, 'Mini-ITX', 'AM5');
+insert into Motherboard (PartID, FormFactor, SocketType) values
+(24, 'ATX', 'AM4');
+insert into Motherboard (PartID, FormFactor, SocketType) values
+(28, 'Mini-ITX', 'AM5');
 
 insert into UserEmail (Email, Username, Password) values
 ('alice@gmail.com', 'alice', 'pass1234');
