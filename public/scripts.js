@@ -207,8 +207,6 @@ async function login(event) {
 async function register(event) {
     event.preventDefault();
 
-    console.log("asdasd")
-
     const user = document.getElementById('registerUser').value;
     const email = document.getElementById('registerEmail').value;
     const password = document.getElementById('registerPassword').value;

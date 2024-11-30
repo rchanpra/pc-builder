@@ -563,8 +563,6 @@ async function Register(Email, Username, Password) {
             return -1;
         }
 
-        console.log("here");
-
         result = await connection.execute(
             `INSERT INTO UserEmail (Email, Username, Password) VALUES (:Email, :Username, :Password)`,
             [Email, Username, Password],
