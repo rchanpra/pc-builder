@@ -230,8 +230,6 @@ async function DELETE(ListID, PartID) {
     });
 }
 
-// 2.1.4 Selection
-// select pcparts with name and model
 async function SELECTION(string) {
     console.log("Selection");
     return await withOracleDB(async (connection) => {
@@ -250,11 +248,24 @@ async function SELECTION(string) {
 // 2.1.5 Projection
 async function PROJECTION(attributes) {
     console.log("Projection");
-    console.log(attributes);
     return await withOracleDB(async (connection) => {
         const SQL = `
             SELECT ${attributes}
             FROM BenchmarkTest
+            `
+        const result = await connection.execute(SQL, {});
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function PROJECTION2(attributes) {
+    console.log("Projection2");
+    return await withOracleDB(async (connection) => {
+        const SQL = `
+            SELECT ${attributes}
+            FROM UserEmail
             `
         const result = await connection.execute(SQL, {});
         return result.rows;
@@ -509,6 +520,7 @@ module.exports = {
     DELETE,
     SELECTION,
     PROJECTION,
+    PROJECTION2,
     // JOIN,
     GROUPBY,
     HAVING,

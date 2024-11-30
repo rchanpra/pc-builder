@@ -84,8 +84,6 @@ async function projectBenchMarks(event) {
         if(testID) {
             cell = header.insertCell()
             cell.textContent = "TestID";
-            console.log(cell);
-            console.log("asd")
         }
         if(testName) {
             cell = header.insertCell()

@@ -28,6 +28,17 @@
         <h1>User Page</h1>
     </div>
 
+    <form id="projectionForm">
+        <input name="projCheck" style="width: auto" type="checkbox" id="box1" value="Email">
+        <label for="box1"> Select Email Column</label><br>
+        <input name="projCheck" style="width: auto" type="checkbox" id="box2" value="Username">
+        <label for="box2"> Select Username Column</label><br>
+        <input name="projCheck" style="width: auto" type="checkbox" id="box3" value="Password">
+        <label for="box3"> Select Password Column</label><br><br>
+        <button type="submit"> Select </button> <br>
+    </form>
+    <div id="projectionMessage"></div>
+
     <h2>List of Users</h2>
     <div id="UserTableDiv">
         <table id="UserTable" name="UserTable" border="1">
