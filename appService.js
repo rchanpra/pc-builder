@@ -360,10 +360,7 @@ async function DIVISION() {
 async function SelectPCParts() {
     console.log("SelectPCParts");
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `SELECT p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID, m.Name
-            FROM PcParts p
-            JOIN Manufacturer m ON p.ManufacturerID=m.ManufacturerID`);
+        const result = await connection.execute('SELECT *FROM PcParts p');
         return result.rows;
     }).catch(() => {
         return [];
@@ -404,6 +401,20 @@ async function SelectBenchmarkTest() {
     console.log("SelectBenchmarkTest");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM BenchmarkTest');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectSell() {
+    console.log("SelectSell");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID, s.Price, s.DatePriced, r.RetailerID, r.Name, r. Website
+            FROM Sell s
+            JOIN Retailer r ON r.RetailerID=s.RetailerID
+            JOIN PCParts p ON p.PartID=s.PartID`);
         return result.rows;
     }).catch(() => {
         return [];
