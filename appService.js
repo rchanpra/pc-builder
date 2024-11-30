@@ -407,6 +407,16 @@ async function SelectBenchmarkTest() {
     });
 }
 
+async function SelectUserEmail() {
+    console.log("SelectUserEmail");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM UserEmail');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function SelectSell() {
     console.log("SelectSell");
     return await withOracleDB(async (connection) => {
@@ -510,6 +520,7 @@ module.exports = {
     SelectRetailer,
     SelectPCPartsList,
     SelectBenchmarkTest,
+    SelectUserEmail,
     SelectSell,
     SelectCompatibility,
     FilterPCParts,
