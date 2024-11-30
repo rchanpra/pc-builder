@@ -1,7 +1,32 @@
 window.onload = function() {
     loadBenchmark();
+    loadScore();
     document.getElementById("projectionForm").addEventListener("submit", projectBenchMarks);
 };
+
+async function loadScore() {
+    const tableElement = document.getElementById('ScoreTable');
+    const tableBody = tableElement.querySelector('tbody');
+
+    const response = await fetch('/SelectScore', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const tableContent = responseData.data;
+
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    tableContent.forEach(part => {
+        const row = tableBody.insertRow();
+        part.forEach((field, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = field;
+        });
+    });
+}
 
 async function loadBenchmark() {
     const tableElement = document.getElementById('BenchmarkTable');
