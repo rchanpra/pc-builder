@@ -420,21 +420,33 @@ async function SelectSell() {
     });
 }
 
-async function SelectSell() {
-    console.log("SelectSell");
+async function SelectCompatibility() {
+    console.log("SelectCompatibility");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID, s.Price, s.DatePriced, r.RetailerID, r.Name, r. Website
-            FROM Sell s
-            JOIN Retailer r ON r.RetailerID=s.RetailerID
-            JOIN PCParts p ON p.PartID=s.PartID`);
+            `SELECT r.PartID, r.Name, r.Model, r.Rating, r.ManufacturerID, p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID
+            FROM Compatibility s
+            JOIN PCParts r ON s.ParentPartID=r.PartID
+            JOIN PCParts p ON p.PartID=s.ChildPartID`);
         return result.rows;
     }).catch(() => {
         return [];
     });
 }
 
-//2.1.6 JOIN
+// 2.1.4 SELECTION
+async function FilterPCParts(string) {
+    console.log("Selection");
+    return await withOracleDB(async (connection) => {
+        const SQL = `SELECT * FROM PcParts p WHERE ${string}`
+        const result = await connection.execute(SQL, {});
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+// 2.1.6 JOIN
 async function SelectPCPartsFromPCPartsList(ListID) {
     console.log("SelectPCPartsFromPCPartsList");
     return await withOracleDB(async (connection) => {
@@ -498,6 +510,8 @@ module.exports = {
     SelectPCPartsList,
     SelectBenchmarkTest,
     SelectSell,
+    SelectCompatibility,
+    FilterPCParts,
     SelectPCPartsFromPCPartsList,
     DeletePCParts
 };
