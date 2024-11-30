@@ -23,7 +23,7 @@
 </nav>
 
 
-<body id="sellBody">
+<body id="compatibilityBody">
 
     <!-- <div id="mySidenav" class="sidenav">
         
@@ -45,45 +45,11 @@
 
     <main>
         <div id="root">
-            <h1>Market Page</h1>
+            <h1>Compatibility Page</h1>
         </div>
 
-        <h2>Add Filters To Search</h2>
-        <form id="filterSearch">
-            <div id="filterSection">
-                <div name="innerFilterSection">
-                    <select name="whereFilter">
-                        <option value="p.PartID">Part ID</option>
-                        <option value="p.Name">Part Name</option>
-                        <option value="p.Model">Model</option>
-                        <option value="p.Rating">Rating</option>
-                        <option value="p.ManufacturerID">Manufacturer ID</option>
-                        <option value="s.Price">Price</option>
-                        <option value="r.RetailerID">Retailer ID</option>
-                        <option value="r.Name">Retailer Name</option>
-                    </select>
-                    <select name="comparisonFilter">
-                        <option value="=">=</option>
-                        <option value="<">&lt;</option>
-                        <option value=">">&gt;</option>
-                    </select>
-                    <input type="text" style="width:500px" id="searchBar" name="searchBar"
-                        placeholder="Input Filter Value (Text or Number)" required>
-                    <select name="logicalFilter">
-                        <option value="and">And</option>
-                        <option value="or">Or</option>
-                    </select>
-                    <button type="button" name="removeFilter" title="Remove Filter">X</button>
-                </div>
-            </div>
-            <button type="button" id="addFilter">Add another filter</button>
-            <button type="submit" id="submitFilterSearch">Search</button>
-        </form>
-        </form>
-        <div id="filterMessage"></div>
-
-        <h2>Market</h2>
-        <table id="SellTable" border="1">
+        <h2>Compatibility</h2>
+        <table id="CompatibilityTable" border="1">
             <thead>
                 <tr>
                     <th>Part ID</th>
@@ -91,11 +57,11 @@
                     <th>Model #</th>
                     <th>Rating</th>
                     <th>Manufacturer ID</th>
-                    <th>Price</th>
-                    <th>Date Priced</th>
-                    <th>Retailer ID</th>
-                    <th>Retailer Name</th>
-                    <th>Website</th>
+                    <th>Part ID</th>
+                    <th>Name</th>
+                    <th>Model #</th>
+                    <th>Rating</th>
+                    <th>Manufacturer ID</th>
                 </tr>
             </thead>
             <tbody>
@@ -105,7 +71,7 @@
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
-    <script src="../js/sell.js"></script>
+    <script src="../js/compatibility.js"></script>
 
 </body>
 

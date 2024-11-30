@@ -293,6 +293,41 @@ router.get('/SelectSell', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/SelectCompatibility', async (req, res) => {
+    console.log("GET - SelectCompatibility");
+    const tableContent = await appService.SelectCompatibility();
+    res.json({data: tableContent});
+});
+
+
+
+// 2.1.4 Selection
+router.post('/filterPcParts', async (req, res) => {
+    console.log("POST - filterPcParts");
+    // 2.2.2 Sanitization
+    let sani = true;
+    let forbidden = ["SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "ALL", "--", "#", "/*", "*/", "*", "%"];
+    const ParsedString = JSON.stringify(req.body).toUpperCase();
+    for (const word of forbidden) {
+        if (ParsedString.includes(word)){
+            console.log(`SANITIZATION FAILED: ` + word);
+            sani = false;
+        }
+    }
+    if (!sani) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const {string} = req.body;
+    const result = await appService.FilterPCParts(string);
+    if (result) {
+        res.json({ success: true, data: result});
+    } else {
+        res.status(500).json({ success: false, message: "Invalid Query, please try again" });
+    }
+});
+
+// 2.1.6 Join
 router.post('/SelectPCPartsFromPCPartsList', async (req, res) => {
     console.log("POST - SelectPCPartsFromPCPartsList");
     // 2.2.2 Sanitization
