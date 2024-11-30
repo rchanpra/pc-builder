@@ -28,6 +28,37 @@
         <h1>Products Page</h1>
     </div>
 
+    <h2>Add Filters To Search</h2>
+        <form id="partFilterSearch">
+            <div id="partFilterSection">
+                <div name="partInnerFilterSection">
+                    <select name="partWhereFilter">
+                        <option value="PartID">Part ID</option>
+                        <option value="Name">Part Name</option>
+                        <option value="Model">Model</option>
+                        <option value="Rating">Rating</option>
+                        <option value="ManufacturerID">Manufacturer ID</option>
+                    </select>
+                    <select name="partComparisonFilter">
+                        <option value="=">=</option>
+                        <option value="<">&lt;</option>
+                        <option value=">">&gt;</option>
+                    </select>
+                    <input type="text" style="width:500px" id="partSearchBar" name="partSearchBar"
+                        placeholder="Input Filter Value (Text or Number)" required>
+                    <select name="partLogicalFilter">
+                        <option value="and">And</option>
+                        <option value="or">Or</option>
+                    </select>
+                    <button type="button" name="partRemoveFilter" title="Remove Filter">X</button>
+                </div>
+            </div>
+            <button type="button" id="addPartFilter">Add another filter</button>
+            <button type="submit" id="submitPartFilterSearch">Search</button>
+        </form>
+        </form>
+        <div id="partFilterMessage"></div>
+
     <h2>List of PC Parts</h2>
     <table id="pcPartsTable" border="1">
         <thead>

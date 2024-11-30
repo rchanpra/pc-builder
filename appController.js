@@ -178,7 +178,7 @@ router.post('/projection', async (req, res) => {
     if (result) {
         res.json({ success: true, data: result});
     } else {
-        res.status(500).json({ success: false });
+        res.status(500).json({ success: false, message: "Failed to select columns, please try again" });
     }
 });
 
