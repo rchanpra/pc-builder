@@ -318,6 +318,12 @@ router.get('/SelectUserEmail', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/SelectUserComment', async (req, res) => {
+    console.log("GET - SelectUserComment");
+    const tableContent = await appService.SelectUserComment();
+    res.json({data: tableContent});
+});
+
 router.get('/SelectSell', async (req, res) => {
     console.log("GET - SelectSell");
     const tableContent = await appService.SelectSell();
@@ -330,7 +336,17 @@ router.get('/SelectCompatibility', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/SelectScore', async (req, res) => {
+    console.log("GET - SelectScore");
+    const tableContent = await appService.SelectScore();
+    res.json({data: tableContent});
+});
 
+router.get('/SelectBuildGuide', async (req, res) => {
+    console.log("GET - SelectBuildGuide");
+    const tableContent = await appService.SelectBuildGuide();
+    res.json({data: tableContent});
+});
 
 // 2.1.4 Selection
 router.post('/filterPcParts', async (req, res) => {

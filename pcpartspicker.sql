@@ -374,6 +374,10 @@ insert into UserComment (CommentID, Text, Email, ListID) values
 (1, 'awesome build', 'alice@gmail.com', 4);
 insert into UserComment (CommentID, Text, Email, ListID) values
 (2, 'smh this build is not it', 'bob@gmail.com', 3);
+insert into UserComment (CommentID, Text, Email, ListID) values
+(3, 'bruh build', 'mallory@gmail.com', 4);
+insert into UserComment (CommentID, Text, Email, ListID) values
+(4, 'what r u doing', 'awesome@gmail.com', 3);
 
 insert into BenchmarkTest (TestID, TestName, Type) values
 (1, 'Cinebench R23', 'CPU');

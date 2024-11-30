@@ -428,6 +428,16 @@ async function SelectUserEmail() {
     });
 }
 
+async function SelectUserComment() {
+    console.log("SelectUserComment");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM UserComment');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function SelectSell() {
     console.log("SelectSell");
     return await withOracleDB(async (connection) => {
@@ -450,6 +460,33 @@ async function SelectCompatibility() {
             FROM Compatibility s
             JOIN PCParts r ON s.ParentPartID=r.PartID
             JOIN PCParts p ON p.PartID=s.ChildPartID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectScore() {
+    console.log("SelectScore");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT s.ListID, b.Description, s.TestScore, s.DateScored, t.TestName
+            FROM Score s
+            JOIN BenchmarkTest t ON s.TestID=t.TestID
+            JOIN Benchmark b ON b.ListID=s.ListID`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function SelectBuildGuide() {
+    console.log("SelectBuildGuide");
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT ppl.ListID, ppl.ListName, ppl.Email, bg.Description
+            FROM PCPartsList ppl 
+            JOIN BuildGuide bg ON ppl.ListID=bg.ListID`);
         return result.rows;
     }).catch(() => {
         return [];
@@ -533,8 +570,11 @@ module.exports = {
     SelectPCPartsList,
     SelectBenchmarkTest,
     SelectUserEmail,
+    SelectUserComment,
     SelectSell,
     SelectCompatibility,
+    SelectScore,
+    SelectBuildGuide,
     FilterPCParts,
     SelectPCPartsFromPCPartsList,
     DeletePCParts
