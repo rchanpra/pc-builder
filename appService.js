@@ -548,6 +548,44 @@ async function DeletePCParts(PartID) {
 }
 
 
+async function Register(Email, Username, Password) {
+    console.log("Register");
+    return await withOracleDB(async (connection) => {
+        let result = await connection.execute(
+            'Select * FROM UserEmail c WHERE c.Email=:Email',
+            [Email]
+        );
+
+        if (result.rows.length == 0) {
+            return -1;
+        }
+
+        result = await connection.execute(
+            `INSERT INTO UserEmail (Email, Username, Password) VALUES (:Email, :Username, :Password)`,
+            [Email, Username, Password],
+            { autoCommit: true }
+        );
+        return result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+
+async function Login(Email, Password) {
+    console.log("Login");
+    return await withOracleDB(async (connection) => {
+        let result = await connection.execute(
+            'Select * FROM UserEmail c WHERE c.Email=:Email and c.Password=:Password',
+            [Email, Password]
+        );
+        return result.rows.length > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+
 // ----------------------------------------------------------
 module.exports = {
     testOracleConnection,
@@ -577,5 +615,7 @@ module.exports = {
     SelectBuildGuide,
     FilterPCParts,
     SelectPCPartsFromPCPartsList,
-    DeletePCParts
+    DeletePCParts,
+    Register,
+    Login
 };

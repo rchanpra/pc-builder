@@ -407,5 +407,57 @@ router.post('/DeletePCParts', async (req, res) => {
     }
 });
 
+router.post("/register", async (req, res) => {
+    console.log("POST - register");
+    // 2.2.2 Sanitization
+    let sani = true;
+    let forbidden = [" SELECT ", " INSERT ", " UPDATE ", " DELETE ", " DROP ", " ALL ", " AND ", " OR ", "--", "#", "/*", "*/", "*", "%"];
+    const ParsedString = JSON.stringify(req.body).toUpperCase();
+    for (const word of forbidden) {
+        if (ParsedString.includes(word)){
+            console.log(`SANITIZATION FAILED: ` + word);
+            sani = false;
+        }
+    }
+    if (!sani) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const {Email, Username, Password} = req.body;
+    const result = await appService.Register(Email, Username, Password);
+    if (result == -1) {
+        res.status(500).json({ success: false , message: "email already registered"});
+    } else if (result) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false , message: "Invalid input"});
+    }
+});
+
+router.post("/login", async (req, res) => {
+    console.log("POST - login");
+    // 2.2.2 Sanitization
+    let sani = true;
+    let forbidden = [" SELECT ", " INSERT ", " UPDATE ", " DELETE ", " DROP ", " ALL ", " AND ", " OR ", "--", "#", "/*", "*/", "*", "%"];
+    const ParsedString = JSON.stringify(req.body).toUpperCase();
+    for (const word of forbidden) {
+        if (ParsedString.includes(word)){
+            console.log(`SANITIZATION FAILED: ` + word);
+            sani = false;
+        }
+    }
+    if (!sani) {
+        return res.status(400).json({ success: false, message: "USER INPUT INVALID - SANITIZATION FAILED" });
+    }
+
+    const {Email, Password} = req.body;
+    const result = await appService.Login(Email, Password);
+    if (result) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false , message: "Invalid login"});
+    }
+});
+
 // ----------------------------------------------------------
 module.exports = router;
