@@ -445,7 +445,7 @@ async function SelectSell() {
     console.log("SelectSell");
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID, s.Price, s.DatePriced, r.RetailerID, r.Name, r. Website
+            `SELECT p.PartID, p.Name, p.Model, p.Rating, p.ManufacturerID, s.Price, s.DatePriced, r.RetailerID, r.Name
             FROM Sell s
             JOIN Retailer r ON r.RetailerID=s.RetailerID
             JOIN PCParts p ON p.PartID=s.PartID`);
