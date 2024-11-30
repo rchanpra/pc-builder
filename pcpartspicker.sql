@@ -238,45 +238,45 @@ insert into Retailer (RetailerID, Name, Website) values
 (5, 'BH', 'www.bhphotovideo.com');
 
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(1, 'Gaming Case', 'GC-5000', 7, 1);
+(1, 'TC Gaming Case v1', 'GC-5000', 5, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(2, 'Power Supply', 'PS-750W', 8, 2);
+(2, 'NG PS 4', 'PS-750W', 5, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(3, 'Graphics Card', 'RTX-3070', 9, 1);
+(3, 'TC Graphics Card', 'RTX-3070', 9, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(4, 'Motherboard', 'MB-ATX123', 7, 3);
+(4, 'CW Motherboard', 'MB-ATX123', 2, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(5, 'Memory Module', 'RAM-16GB-DDR4', 7, 2);
+(5, 'Katanta Memory Module', 'RAM-16GB-DDR4', 7, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(6, 'Storage Drive', 'SSD-1TB', 9, 3);
+(6, 'CW Storage Drive', 'SSD-1TB', 9, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(7, 'Processor', 'CPU-i5-12600K', 9, 1);
+(7, 'TC Processor', 'CPU-i5-12600K', 5, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(8, 'Cooler', 'AirCool-X200', 7, 2);
+(8, 'NG Cooler', 'AirCool-X200', 7, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(9, 'Graphics Card', 'RX-6800', 10, 3);
+(9, ' Faster Card 123', 'RX-6800', 4, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(10, 'Motherboard', 'MB-MicroATX100', 8, 1);
+(10, 'TC Motherboard Nitro 5', 'MB-MicroATX100', 7, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(11, 'Memory Module', 'RAM-32GB-DDR5', 10, 3);
+(11, 'Memory 45', 'RAM-32GB-DDR5', 10, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(12, 'Storage Drive', 'HDD-2TB', 7, 1);
+(12, 'TC 451 Drive', 'HDD-2TB', 7, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(13, 'Processor', 'CPU-Ryzen5-7600', 8, 2);
+(13, 'NG Processor c2.3', 'CPU-Ryzen5-7600', 8, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(14, 'Cooler', 'LiquidCool-500', 9, 3);
+(14, 'Cooler 12', 'LiquidCool-500', 5, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(15, 'Gaming Case', 'Mini-Case-MTX', 6, 1);
+(15, 'Gaming 12', 'Mini-Case-MTX', 6, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(16, 'Power Supply', 'PS-550W', 8, 2);
+(16, 'Power Cooler 67', 'PS-550W', 8, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(17, 'Graphics Card', 'RTX-3080', 9, 1);
+(17, 'Graphics g4.5', 'RTX-3080', 5, 1);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(18, 'Motherboard', 'MB-ATX-Elite', 9, 3);
+(18, 'CW Motherboard', 'MB-ATX-Elite', 9, 3);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(19, 'Memory Module', 'RAM-8GB-DDR4', 6, 2);
+(19, 'NG Memory Module', 'RAM-8GB-DDR4', 2, 2);
 insert into PCParts (PartID, Name, Model, Rating, ManufacturerID) values
-(20, 'Storage Drive', 'SSD-512GB', 8, 3);
+(20, ' CW Storage Drive 417', 'SSD-512GB', 8, 3);
 
 insert into Case (PartID, Height, Width, Length, FormFactor) values
 (1, 450, 210, 460, 'ATX');
@@ -336,6 +336,10 @@ insert into UserEmail (Email, Username, Password) values
 ('mallory@gmail.com', 'mal', 'qwerty');
 insert into UserEmail (Email, Username, Password) values
 ('trent@gmail.com', 'trent22', 'asdf1234');
+insert into UserEmail (Email, Username, Password) values
+('bruh@gmail.com', 'bruh', '12512asf');
+insert into UserEmail (Email, Username, Password) values
+('awesome@gmail.com', 'aswersomebruh', 'asdas');
 
 insert into PCPartsList (ListID, ListName, Email) values
 (1, 'Gaming Build', 'alice@gmail.com');
@@ -347,11 +351,19 @@ insert into PCPartsList (ListID, ListName, Email) values
 (4, 'Budget Build', 'mallory@gmail.com');
 insert into PCPartsList (ListID, ListName, Email) values
 (5, 'High-End Build', 'trent@gmail.com');
-
+insert into PCPartsList (ListID, ListName, Email) values
+(6, 'Cool Build', 'bruh@gmail.com');
+insert into PCPartsList (ListID, ListName, Email) values
+(7, 'Awesome Build', 'awesome@gmail.com');
+    
 insert into Benchmark (ListID, Description) values
 (1, 'Gaming benchmark using 3DMark and Cyberpunk 2077.');
 insert into Benchmark (ListID, Description) values
 (2, 'Workstation build tested with Blender rendering.');
+insert into Benchmark (ListID, Description) values
+(6, 'Test against the world tests.');
+insert into Benchmark (ListID, Description) values
+(7, 'EZ.');
 
 insert into BuildGuide (ListID, Description) values
 (3, 'Steps for setting up a streaming PC.');
@@ -376,33 +388,103 @@ insert into BenchmarkTest (TestID, TestName, Type) values
 
 insert into Compatibility (ParentPartID, ChildPartID) values
 (1, 2);
+insert into Compatibility (ParentPartID, ChildPartID) values
+(1, 3);
+insert into Compatibility (ParentPartID, ChildPartID) values
+(1, 4);
 insert into Compatibility (ParentPartID, ChildPartID) values 
-(2, 3);
-insert into Compatibility (ParentPartID, ChildPartID) values
-(3, 4);
-insert into Compatibility (ParentPartID, ChildPartID) values
+(1, 5);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(1, 12);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(1, 16);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(1, 17);
+insert into Compatibility (ParentPartID, ChildPartID) values 
 (4, 5);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(4, 12);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(4, 16);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(4, 17);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(5, 12);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(5, 16);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(5, 17);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(12, 16);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(12, 17);
+insert into Compatibility (ParentPartID, ChildPartID) values 
+(16, 17);
+insert into Compatibility (ParentPartID, ChildPartID) values
+(14, 19);
 insert into Compatibility (ParentPartID, ChildPartID) values
 (5, 1);
 
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(1, 1, 100, 699, '2023-10-01');
+(1, 1, 100, 650, '2023-10-01');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(2, 1, 100, 699, '2023-10-01');
+(2, 1, 2, 600, '2023-10-11');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(3, 1, 100, 699, '2023-10-01');
+(3, 1, 45, 699, '2023-03-01');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(4, 1, 100, 699, '2023-10-01');
+(4, 1, 12, 768, '2023-10-15');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(5, 1, 100, 699, '2023-10-01');
+(5, 1, 76, 699, '2023-05-01');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(1, 2, 50, 299, '2023-10-02');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
 (2, 2, 50, 299, '2023-10-02');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(3, 3, 75, 49, '2023-10-03');
+(3, 3, 75, 49, '2023-10-13');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(4, 4, 30, 129, '2023-10-04');
+(4, 4, 30, 129, '2023-12-04');
 insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
-(5, 5, 200, 99, '2023-10-05');
+(5, 4, 25, 119, '2023-12-04');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(5, 5, 200, 99, '2023-11-14');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(3, 7, 122, 45, '2023-10-27');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(3, 9, 45, 12, '2023-10-09');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(1, 10, 23, 99, '2023-01-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(2, 10, 200, 99, '2023-10-21');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(3, 10, 54, 101, '2022-11-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(1, 12, 67, 79, '2023-01-30');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(2, 13, 12, 89, '2023-08-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(1, 15, 12, 111, '2023-10-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(2, 15, 200, 109, '2023-07-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(3, 15, 54, 90, '2023-08-15');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(4, 15, 23, 95, '2023-08-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(5, 15, 16, 99, '2023-09-30');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(1, 17, 200, 399, '2024-10-15');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(2, 17, 42, 367, '2023-11-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(3, 17, 78, 350, '2023-10-22');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(4, 17, 154, 455, '2021-10-25');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(5, 17, 12, 400, '2023-10-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(4, 19, 76, 69, '2024-11-05');
+insert into Sell (RetailerID, PartID, Stock, Price, DatePriced) values
+(5, 20, 45, 50, '2023-12-05');
 
 insert into Contain (ListID, PartID) values
 (1, 1);
@@ -414,16 +496,36 @@ insert into Contain (ListID, PartID) values
 (1, 4);
 insert into Contain (ListID, PartID) values
 (2, 1);
+insert into Contain (ListID, PartID) values
+(2, 12);
+insert into Contain (ListID, PartID) values
+(2, 17);
+insert into Contain (ListID, PartID) values
+(2, 5);
+insert into Contain (ListID, PartID) values
+(2, 16);
+insert into Contain (ListID, PartID) values
+(2, 4);
+insert into Contain (ListID, PartID) values
+(3, 14);
+insert into Contain (ListID, PartID) values
+(3, 19);
+insert into Contain (ListID, PartID) values
+(4, 13);
 
 insert into Score (TestID, ListID, TestScore, DateScored) values
 (1, 2, 99, '2024-01-01');
+insert into Score (TestID, ListID, TestScore, DateScored) values
+(1, 6, 89, '2024-01-01');
+insert into Score (TestID, ListID, TestScore, DateScored) values
+(1, 7, 69, '2024-01-01');
 insert into Score (TestID, ListID, TestScore, DateScored) values 
 (2, 2, 54, '2024-01-02');
+insert into Score (TestID, ListID, TestScore, DateScored) values 
+(2, 6, 54, '2024-01-02');
 insert into Score (TestID, ListID, TestScore, DateScored) values
 (3, 1, 86, '2024-01-03');
 insert into Score (TestID, ListID, TestScore, DateScored) values
 (4, 2, 18, '2024-01-04');
-insert into Score (TestID, ListID, TestScore, DateScored) values
-(5, 1, 88, '2024-01-05');
 
 commit work;
