@@ -439,7 +439,7 @@ async function SelectCompatibility() {
 async function FilterPCParts(string) {
     console.log("Selection");
     return await withOracleDB(async (connection) => {
-        const SQL = `SELECT * FROM PcParts p WHERE ${string}`
+        const SQL = `SELECT * FROM PcParts WHERE ${string}`
         const result = await connection.execute(SQL, {});
         return result.rows;
     }).catch(() => {

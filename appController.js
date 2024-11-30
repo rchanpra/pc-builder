@@ -303,7 +303,7 @@ router.get('/SelectCompatibility', async (req, res) => {
 
 // 2.1.4 Selection
 router.post('/filterPcParts', async (req, res) => {
-    console.log("POST - SELECTION");
+    console.log("POST - filterPcParts");
     // 2.2.2 Sanitization
     let sani = true;
     let forbidden = ["SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "ALL", "--", "#", "/*", "*/", "*", "%"];
