@@ -559,9 +559,11 @@ async function Register(Email, Username, Password) {
             [Email]
         );
 
-        if (result.rows.length == 0) {
+        if (result.rows.length > 0) {
             return -1;
         }
+
+        console.log("here");
 
         result = await connection.execute(
             `INSERT INTO UserEmail (Email, Username, Password) VALUES (:Email, :Username, :Password)`,

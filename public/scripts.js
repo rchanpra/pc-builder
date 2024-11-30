@@ -158,6 +158,7 @@ async function loadLogin(event) {
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
     if(!alreadyLoadedLog) {
+        console.log("\n\n\n login1 \n\n\n")
         document.getElementById("loginForm").addEventListener("submit", login);
         alreadyLoadedLog = true;
     }
@@ -169,6 +170,7 @@ async function loadRegister(event) {
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
     if(!alreadyLoadedReg) {
+        console.log("\n\n\n register1 \n\n\n")
         document.getElementById("registerForm").addEventListener("submit", register);
         alreadyLoadedReg = true;
     }
@@ -181,7 +183,7 @@ async function login(event) {
     const password = document.getElementById('loginPassword').value;
 
 
-    const response = await fetch('/update', {
+    const response = await fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
