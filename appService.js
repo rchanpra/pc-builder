@@ -253,7 +253,7 @@ async function PROJECTION(attributes) {
     return await withOracleDB(async (connection) => {
         const SQL = `
             SELECT ${attributes}'
-            FROM Retailer
+            FROM BenchmarkTest
             `
         const result = await connection.execute(SQL, {});
         return result.rows;
