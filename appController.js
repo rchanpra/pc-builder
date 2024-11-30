@@ -455,7 +455,7 @@ router.post("/login", async (req, res) => {
     if (result) {
         res.json({ success: true });
     } else {
-        res.status(500).json({ success: false , message: "Invalid login"});
+        res.status(500).json({ success: false , message: "Invalid login, please check your email / password"});
     }
 });
 

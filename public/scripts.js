@@ -149,11 +149,19 @@ window.onload = function() {
     // document.getElementById("countDemotable").addEventListener("click", countDemotable);
 };
 
+let alreadyLoadedLog = false;
+let alreadyLoadedReg = false;
+
 async function loadLogin(event) {
     event.preventDefault()
     let route = "/pages/login.html"
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
+    if(!alreadyLoadedLog) {
+        console.log("\n\n\n login1 \n\n\n")
+        document.getElementById("loginForm").addEventListener("submit", login);
+        alreadyLoadedLog = true;
+    }
 };
     
 async function loadRegister(event) {
@@ -161,7 +169,70 @@ async function loadRegister(event) {
     let route = "/pages/register.html"
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
+    if(!alreadyLoadedReg) {
+        console.log("\n\n\n register1 \n\n\n")
+        document.getElementById("registerForm").addEventListener("submit", register);
+        alreadyLoadedReg = true;
+    }
 };
+
+async function login(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+
+    const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Email: email,
+            Password: password
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('loginMessage');
+
+    if (responseData.success) {
+        messageElement.textContent = "Logged in successfully!";
+    } else {
+        messageElement.textContent = responseData.message;
+    }
+}
+
+async function register(event) {
+    event.preventDefault();
+
+    const user = document.getElementById('registerUser').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+
+
+    const response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            Email: email,
+            Username: user,
+            Password: password
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('RegisterMessage');
+
+    if (responseData.success) {
+        messageElement.textContent = "Registered successfully!";
+    } else {
+        messageElement.textContent = responseData.message;
+    }
+}
 
 
 

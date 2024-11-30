@@ -558,7 +558,7 @@ async function Register(Email, Username, Password) {
             [Email]
         );
 
-        if (result.rows.length == 0) {
+        if (result.rows.length > 0) {
             return -1;
         }
 
