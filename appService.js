@@ -250,9 +250,10 @@ async function SELECTION(string) {
 // 2.1.5 Projection
 async function PROJECTION(attributes) {
     console.log("Projection");
+    console.log(attributes);
     return await withOracleDB(async (connection) => {
         const SQL = `
-            SELECT ${attributes}'
+            SELECT ${attributes}
             FROM BenchmarkTest
             `
         const result = await connection.execute(SQL, {});

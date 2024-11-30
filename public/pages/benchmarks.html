@@ -26,19 +26,32 @@
         <h1>Benchmarks Page</h1>
     </div>
 
+    <form id="projectionForm">
+        <input name="projCheck" style="width: auto" type="checkbox" id="box1" value="TestID">
+        <label for="box1"> Select TestID Column</label><br>
+        <input name="projCheck" style="width: auto" type="checkbox" id="box2" value="TestName">
+        <label for="box2"> Select TestName Column</label><br>
+        <input name="projCheck" style="width: auto" type="checkbox" id="box3" value="Type">
+        <label for="box3"> Select Type Column</label><br><br>
+        <button type="submit"> Select </button> <br>
+    </form>
+    <div id="projectionMessage"></div>
+
     <h2>List of Benchmarks</h2>
-    <table id="BenchmarkTable" border="1">
-        <thead>
-            <tr>
-                <!--Table head, need to be adjusted accordingly to align with your own.-->
-                <th>TestID</th>
-                <th>TestName</th>
-                <th>Type</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div id="benchMarkTableDiv">
+        <table id="BenchmarkTable" name="BenchmarkTable" border="1">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>TestID</th>
+                    <th>TestName</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 
     <br>
     <hr><br> <!-- ========================================================================= -->
@@ -48,4 +61,5 @@
     <script src="../js/benchmarks.js"></script>
 
 </body>
+
 </html>
