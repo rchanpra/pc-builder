@@ -61,7 +61,7 @@ async function runFilter(event) {
     });
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('filterMessage');
+    const messageElement = document.getElementById('partFilterMessage');
     if (responseData.success) {
         const tableContent = responseData.data;
         messageElement.textContent = "Filter applied successfully"
