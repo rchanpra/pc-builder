@@ -300,11 +300,12 @@ async function GROUPBY() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
-            SELECT x.ManufacturerID, x.Name, AVG(x.Rating)
+            SELECT x.ManufacturerID, x.Name, AVG(x.Rating) AverageRating
             FROM (SELECT p.Rating, p.ManufacturerID, m.Name
                     FROM PcParts p 
                     JOIN Manufacturer m ON p.ManufacturerID=m.ManufacturerID) x
             GROUP BY x.ManufacturerID, x.Name
+            ORDER BY AverageRating
             `
         );
         return result.rows;
@@ -319,12 +320,13 @@ async function HAVING(rating) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `
-            SELECT ManufacturerID, Name, COUNT(PartID), MIN(Rating)
+            SELECT ManufacturerID, Name, COUNT(PartID) CountParts, MIN(Rating) MinRating
             FROM (SELECT p.PartID, p.Rating, p.ManufacturerID, m.Name
                     FROM PcParts p 
                     JOIN Manufacturer m ON p.ManufacturerID=m.ManufacturerID)
             GROUP BY ManufacturerID, Name
             HAVING MIN(Rating) >= :rating
+            ORDER BY MinRating
             `,
             [rating]
         );
@@ -341,7 +343,8 @@ async function NESTEDGROUPBY() {
         const result = await connection.execute(`
             SELECT *
             FROM PCParts pe
-            WHERE pe.Rating > ALL(SELECT AVG(p.Rating) FROM PCParts p GROUP BY ManufacturerID)
+            WHERE pe.Rating > ALL(SELECT MIN(p.Rating) avgrating FROM PCParts p GROUP BY ManufacturerID)
+            ORDER BY pe.Rating
         `);
         return result.rows;
     }).catch(() => {
