@@ -1,5 +1,5 @@
 const route = (event) => {
-    event = event || window.event;
+    console.log('asd')
     event.preventDefault();
     window.history.pushState({}, "", event.target.href);
     handleLocation();
@@ -7,8 +7,7 @@ const route = (event) => {
 
 const routes = {
     404: "/pages/404.html",
-    "/": "/pages/index.html",
-    "/products": "/pages/products.html",
+    "/": "/index.html",
 };
 
 const handleLocation = async () => {
@@ -17,8 +16,6 @@ const handleLocation = async () => {
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 };
-
-
 
 window.onpopstate = handleLocation;
 window.route = route;
